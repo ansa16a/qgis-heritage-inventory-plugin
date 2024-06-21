@@ -1,0 +1,30 @@
+[general]
+name=Heritage Inventory
+qgisMinimumVersion=3.0
+description=Digitally register, manage, and visualise heritage resource data with this inventory worksheet plugin.
+
+version=2
+author=Anna Sanasaryan
+email=ansa16a@upv.edu.es
+
+about=The Heritage Inventory Plugin simplifies the management of heritage resources by offering a digital solution for data collection and visualisation.
+	
+	Create detailed databases of heritage sites with ease, visualise spatial and non-spatial data, and access multilingual support in English, Spanish, and Armenian.
+	
+	Streamline your heritage conservation efforts.
+
+# changelog=
+
+tracker=https://github.com/ansa16a/qgis-heritage-inventory-plugin/issues
+repository=https://github.com/ansa16a/qgis-heritage-inventory-plugin/
+homepage=https://github.com/ansa16a/qgis-heritage-inventory-plugin/#readme
+
+category=Database
+tags=inventory,heritage,management,python
+icon=logos/icon.png
+
+hasProcessingProvider=no
+server=False
+
+experimental=False
+deprecated=False
