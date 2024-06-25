@@ -1,7 +1,7 @@
 # Heritage Inventory Plugin
 The Heritage Inventory Plugin (HIP) is a digital inventory worksheet that helps to create a digital database of heritage elements through simple input of spatial and non-spatial data. It is available in English, Spanish and Armenian. The Plugin forms a part of a PhD thesis.
 
-## 1. User Interface Design
+## User Interface Design
 Main Window consists of a ***Title bar***, ***Menu bar***, ***Body***, or ***Work area*** (Figure 1). The window is resizable; horizontal and vertical scroll bars appear as required. The `Worksheet Code` information stays stationary. Within the GUI, there are 12 tabs, each collecting information thematically. Navigating through tabs can be done either by directly clicking on desired tab or by using the black circular buttons positioned at the bottom of the Work area (![Screenshot 2024-06-22 184719](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/62f3d79a-fda9-4be3-b78a-85e958302bcb)) or using shortcuts: ***Ctrl+Alt+Shift+Z*** for going `Back` to the previous tab and ***Ctrl+Alt+Shift+X*** for going to the `Next` tub.
 ||
 |-|
@@ -10,7 +10,7 @@ Main Window consists of a ***Title bar***, ***Menu bar***, ***Body***, or ***Wor
 
 
 
-### 1.1. Menu bar
+### 1. Menu bar
 The Menu bar has three options: `File`, `Language` and `Get Started` (Figure 2, 3, 4).
 The `File` Menu bar offers the user the following options (Figure 2):
 -	![f1](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/159d4640-6254-4f5e-be45-83b99cad3715)
@@ -27,7 +27,7 @@ The `File` Menu bar offers the user the following options (Figure 2):
 > [!IMPORTANT]
 > To avoid possible errors, the full path to the folder where the project will be saved should not contain spaces. The spaces in the names should be replaced, for example, with an underscore (_).
 - ![f3](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/4d81d545-96e4-483d-8a2c-fe8c2e284c00) ***Save the project*** – Asks the user to select the location to save the project and specify the file extension (either `*.qgs` or `*.qgz`).
-- ![f4](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/51711c2a-1839-4254-ac0d-c4ebf9dc854a) ***Export to Excel*** – Exports all attribute tables from the three layers into a single MS Excel `*.xlsx` file. The program creates three workbooks, each containing a single attribute table.
+- ![f4](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/51711c2a-1839-4254-ac0d-c4ebf9dc854a) ***Export to Excel*** – Exports all attribute les from the three layers into a single MS Excel `*.xlsx` file. The program creates three workbooks, each containing a single attribute table.
 - ![f5](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/103d84e8-532b-4c16-a465-b8d8a67225a6) ***Open project*** – Askes to select an existing project.
 
 The `Language` Menu bar includes Armenian (Eastern), English (British), and Spanish (Castilian) (Figure 3). After choosing the desired language, a confirmation message will appear, as switching the language may result in data loss.
@@ -67,8 +67,8 @@ Many Worksheets can be filled out within the same project file depending on the 
 
 
 
-### 1.2. Work area
-#### 1.2.1. Worksheet code
+### 2. Work area
+#### Worksheet code
 ||
 |-|
 |![Picture21](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/c3f7c032-6fb5-4d61-a2a5-5f621c0bf5b8)|
@@ -86,7 +86,7 @@ This format ensures that the old and the new worksheets, as well as their associ
 
 
 
-#### 1.2.2. Tab 1: Sections 1-3. Inspection data, Identification Information, Visual presentation
+#### Tab 1: Sections 1-3. Inspection data, Identification Information, Visual presentation
 ||
 |-|
 |![Picture22](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/89d51c3c-61f7-4dea-a9e1-449bf578c06d)|
@@ -105,7 +105,7 @@ Each file is expected to have a descriptive caption for easy identification. Fur
 
 
 
-#### 1.2.3. Tab 2: Section 4. Location information
+#### Tab 2: Section 4. Location information
 ||
 |-|
 |![Picture3](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/59398585-1ee5-4018-952c-3fa77fdd96ce)|
@@ -131,7 +131,7 @@ As soon as the point is registered (either by the mouse click or by the data inp
 
 
 
-#### 1.2.4 Tab 3: Section 5. Monument area and Protected zone
+#### Tab 3: Section 5. Monument area and Protected zone
 ||
 |-|
 |![Picture4](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/f1e635db-6c78-454d-b523-e1f606824ca6)|
@@ -169,7 +169,7 @@ After selecting the POR, a default text is generated in the `Point of Reference`
 
 
 
-#### 1.2.5. Tab 4: Section 6. Type of the element and description of its attributes
+#### Tab 4: Section 6. Type of the element and description of its attributes
 ||
 |-|
 |![Picture6](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/a622525c-be1f-4715-ae56-d93524b45995)|
@@ -180,7 +180,7 @@ After selecting the POR, a default text is generated in the `Point of Reference`
 
 
 
-#### 1.2.6. Tab 5: Section 7. Justification for Protection
+#### Tab 5: Section 7. Justification for Protection
 ||
 |-|
 |![Picture7](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/3ce19ca2-9334-43d0-9eeb-e20d9fc6209e)|
@@ -190,7 +190,7 @@ Given the diverse possible reasons for designation (Figure 20), users have the f
 
 
 
-#### 1.2.7. Tab 6: Section 8. Physical condition and Conservation details
+#### Tab 6: Section 8. Physical condition and Conservation details
 ||
 |-|
 |![Picture8](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/7b44c496-754a-4d04-925a-8e90b4959db0)|
@@ -200,7 +200,7 @@ A significant portion of the data fields in this tab are initially disabled and 
 
 
 
-#### 1.2.8. Tab 7: Section 9. Legal information and Management
+#### Tab 7: Section 9. Legal information and Management
 ||
 |-|
 |![Picture9](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/ed8a988f-4cdb-4775-ac58-44cccb053d1a)|
@@ -210,7 +210,7 @@ The structure of the questions and options in this tab is direct, requiring sele
 
 
 
-#### 1.2.9. Tab 8: Section 10. Uses and accessibility
+#### Tab 8: Section 10. Uses and accessibility
 ||
 |-|
 |![Picture10](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/1baa12ec-8a8f-4d39-961c-7aeb9282560f)|
@@ -221,7 +221,7 @@ Subsequently, the user is required to complete the section regarding the accessi
 
 
 
-#### 1.2.10. Tab 9: Section 11. Intrinsic and Tourism values
+#### Tab 9: Section 11. Intrinsic and Tourism values
 ||
 |-|
 |![Picture11](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/79cfeebb-a04d-4266-96ea-1db7cce332c5)|
@@ -231,7 +231,7 @@ The present section comprises two subsections (Figure 24), where the user is ask
 
 
 
-#### 1.2.11. Tab 10: Section 12. Observations and Additional comments
+#### Tab 10: Section 12. Observations and Additional comments
 ||
 |-|
 |![Picture12](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/caec24f3-1706-4123-8e67-7bc92efd2b8f)|
@@ -241,7 +241,7 @@ This section (Figure 25) is designated for including any observations, remarks, 
 
 
 
-#### 1.2.12. Tab 11: Section 13. Bibliography and Other links
+#### Tab 11: Section 13. Bibliography and Other links
 ||
 |-|
 |![Picture13](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/b58f96cf-0c8c-484f-be52-0d2e671f549b)|
@@ -251,7 +251,7 @@ This section (Figure 26) serves as a repository for all bibliographic references
 
 
 
-#### 1.2.13. Tab 12: Section 14. Graphical documents (photographs, maps, leaflets, etc.)
+#### Tab 12: Section 14. Graphical documents (photographs, maps, leaflets, etc.)
 ||
 |-|
 |![Picture14](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/7be7a4eb-5d36-41fa-9613-11824fad8583)|
@@ -271,7 +271,7 @@ The documents and images uploaded to the plugin are renamed based on the Workshe
 
 
 
-#### 1.2.14. Register button
+#### Register button
 ![Picture20](https://github.com/ansa16a/qgis-heritage-inventory-plugin/assets/163760360/136e0b47-24d0-4f50-88b8-6f84bb0c09c4) The button is disabled by default. Once a Point of Reference has been added to the map, the button will become enabled.
 
 When the button is pressed, the user is asked to specify the location where project will be saved and register the data from all data fields to the corresponding fields in the attribute table. The coordinates of the monument and protected area are exported to Excel format, and users will be asked to provide a name for the file. All uploaded documents and images will be renamed and stored in the corresponding folder.
