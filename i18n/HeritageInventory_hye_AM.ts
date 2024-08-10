@@ -576,7 +576,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>4.1 General Location Information</source>
-        <translation>4․1 Տեղակայման Ընդհանուր Տեղեկություն</translation>
+        <translation>4․1 Տեղակայման ընդհանուր տեղեկություն</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -590,8 +590,8 @@ Level 2 – sub-item; etc.</source>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>District / Zone / Neighbourhood, etc.:</source>
-        <translation>Վարչական շրջան / Գոտի և այլն՝</translation>
+        <source>District, zone, neighbourhood, etc.:</source>
+        <translation>Վարչական շրջան, գոտի, այլ՝</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -601,7 +601,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>Street or road number, kilometric point, etc.:</source>
-        <translation>Փողոցի կամ պողոտայի համար և այլն՝</translation>
+        <translation>Փողոցի, պողոտայի և այլնի համար՝</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -621,7 +621,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>4.2 Coordinates of the Point of Reference</source>
-        <translation>4.2 Հենակետի Կոորդինատներ</translation>
+        <translation>4.2 Հենակետի կոորդինատներ</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -853,18 +853,14 @@ Level 2 – sub-item; etc.</source>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>5. MONUMENTS AND PROTECTED AREAS</source>
+        <location filename="her_inv_main.ui" line="0"/>
+        <source>5. MONUMENT AREA AND PROTECTED ZONE</source>
         <translation>5. ՀՈՒՇԱՐՁԱՆԻ ՏԱՐԱԾՔ ԵՎ ՊԱՀՊԱՆԱԿԱՆ ԳՈՏԻ</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>To enable the tab register the Point of Reference on the map.</source>
         <translation>Բաժինը ակտիվացնելու համար գրանցեք Հենակետը քարտեզի վրա:</translation>
-    </message>
-    <message>
-        <location filename="her_inv_main.ui" line="0"/>
-        <source>5. MONUMENT AREA AND PROTECTED ZONE</source>
-        <translation></translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1125,7 +1121,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>6.2 Construction Details</source>
-        <translation>6.2 Շինարարության Մանրամասներ</translation>
+        <translation>6.2 Շինարարության մանրամասներ</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1285,10 +1281,6 @@ Level 2 – sub-item; etc.</source>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>7. DESCRIPTIVE-CHARACTERISTIC REFERENCES</source>
-        <translation>7. ՆԿԱՐԱԳՐԱԿԱՆ – ԲՆՈՒԹԱԳՐԱԿԱՆ ՀՂՈՒՄՆԵՐ</translation>
-    </message>
-    <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>7. JUSTIFICATION FOR PROTECTION</source>
         <translation>7. ՊԱՇՏՊԱՆՈՒԹՅԱՆ ՀԻՄՆԱՎՈՐՈՒՄ</translation>
@@ -1342,7 +1334,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>8.1 Integrity of the Heritage Element</source>
-        <translation>8․1 Ժառանգության Օբյեկտի Ամբողջականություն</translation>
+        <translation>8․1 Ժառանգության օբյեկտի ամբողջականություն</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1397,7 +1389,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>8.2 Interventions and Restoration Work Undertaken</source>
-        <translation>8.2 Ձեռնարկված Միջամտություններ և Վերականգնողական Աշխատանքներ</translation>
+        <translation>8.2 Ձեռնարկված միջամտություններ և վերականգնողական աշխատանքներ</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1491,7 +1483,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>8.3 Risks and Threats</source>
-        <translation>Ռիսկեր և Սպառնալիքներ</translation>
+        <translation>8․3 Ռիսկեր և սպառնալիքներ</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1522,7 +1514,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>Lack of physical barriers or protective elements</source>
-        <translation>Ֆիզիկական խոչընդոտների կամ պաշտպանիչ տարրերի բացակայություն</translation>
+        <translation>Ֆիզիկական խոչընդոտների կամ պաշտպանական տարրերի բացակայություն</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1618,12 +1610,12 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>9.1 Ownership of the Element</source>
-        <translation>9.1 Օբյեկտի Նկատմամբ Սեփականության Իրավունք</translation>
+        <translation>9.1 Օբյեկտի նկատմամբ սեփականության իրավունք</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>Owner of the element and contact details:</source>
-        <translation>Օբյեկտի սեփականատեր և կապի միջոցները/տվյալներ՝</translation>
+        <translation>Օբյեկտի սեփականատեիրոջ տվյալներ և  կապի միջոցներ՝</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1673,7 +1665,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>Regulations that protect the element and that are applicable to its management:</source>
-        <translation>Ժառանգության օբյեկտը պաշտպանող օրենքներ, իրավական ակտերև կանոնակարգեր, որոնք կիրառելի են դրա կառավարման համար`</translation>
+        <translation>Ժառանգության օբյեկտը պաշտպանող օրենքներ, իրավական ակտեր և կանոնակարգեր, որոնք կիրառելի են դրա կառավարման համար`</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1740,7 +1732,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>10.1 Uses of the Element</source>
-        <translation>10.1 Տարրի Օգտագործում</translation>
+        <translation>10.1 Տարրի օգտագործում</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -2058,7 +2050,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>11.1 Intrinsic Value</source>
-        <translation>11․1 Իրական Արժեք</translation>
+        <translation>11․1 Իրական արժեք</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -2166,7 +2158,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>11.2 Tourism Value</source>
-        <translation>11.2 Զբոսաշրջային Արժեք</translation>
+        <translation>11.2 Զբոսաշրջային արժեք</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -2176,7 +2168,7 @@ Level 2 – sub-item; etc.</source>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>The extent to which the heritage item is open for public visits. This includes the working days and hours, as well as the limitations imposed by visitor carrying capacity.</source>
-        <translation>Որքանով է ժառանգության օբյեկտը բաց հանրային այցելությունների համար՝ հաշվի առնելով աշխատանքային օրերն ու ժամերը, ինչպես նաև այցելուների կրողունակությամբ սահմանված սահմանափակումները:։</translation>
+        <translation>Որքանով է ժառանգության օբյեկտը բաց հանրային այցելությունների համար՝ հաշվի առնելով աշխատանքային օրերն ու ժամերը, ինչպես նաև այցելուների կրողունակությամբ սահմանված սահմանափակումները:</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>

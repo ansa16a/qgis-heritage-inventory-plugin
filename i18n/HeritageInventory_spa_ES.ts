@@ -399,7 +399,7 @@
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>Heritage certificate ID:</source>
-        <translation>Numero de referencia en el catálogo o registro:</translation>
+        <translation>Número de referencia en el catálogo o registro:</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -590,8 +590,8 @@ Nivel 2 - subelemento; etc.</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>District / Zone / Neighbourhood, etc.:</source>
-        <translation>Distrito / Zona / Barrio / Partida։</translation>
+        <source>District, zone, neighbourhood, etc.:</source>
+        <translation>Distrito, zona, barrio, partida, etc.:</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -852,18 +852,14 @@ Nivel 2 - subelemento; etc.</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>5. MONUMENTS AND PROTECTED AREAS</source>
+        <location filename="her_inv_main.ui" line="0"/>
+        <source>5. MONUMENT AREA AND PROTECTED ZONE</source>
         <translation>5. ÁREA DEL MONUMENTO Y ZONA PROTEGIDA</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>To enable the tab register the Point of Reference on the map.</source>
         <translation>Para activar la pestaña registre el Punto de Referencia en el mapa.</translation>
-    </message>
-    <message>
-        <location filename="her_inv_main.ui" line="0"/>
-        <source>5. MONUMENT AREA AND PROTECTED ZONE</source>
-        <translation>5. ÁREA DEL MONUMENTO Y ZONA PROTEGIDA</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1284,10 +1280,6 @@ Nivel 2 - subelemento; etc.</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>7. DESCRIPTIVE-CHARACTERISTIC REFERENCES</source>
-        <translation>7. REFERENCIAS DESCRIPTIVO-CARACTERÍSTICAS</translation>
-    </message>
-    <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>7. JUSTIFICATION FOR PROTECTION</source>
         <translation>7. JUSTIFICACIÓN DE LA PROTECCIÓN</translation>

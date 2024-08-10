@@ -590,8 +590,8 @@ Level 2 – sub-item; etc.</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>District / Zone / Neighbourhood, etc.:</source>
-        <translation>District / Zone / Neighbourhood, etc.:</translation>
+        <source>District, zone, neighbourhood, etc.:</source>
+        <translation>District, zone, neighbourhood, etc.:</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -852,18 +852,14 @@ Level 2 – sub-item; etc.</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>5. MONUMENTS AND PROTECTED AREAS</source>
-        <translation>5. MONUMENTS AND PROTECTED AREAS</translation>
+        <location filename="her_inv_main.ui" line="0"/>
+        <source>5. MONUMENT AREA AND PROTECTED ZONE</source>
+        <translation>5. MONUMENT AREA AND PROTECTED ZONE</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>To enable the tab register the Point of Reference on the map.</source>
         <translation>To enable the tab register the Point of Reference on the map.</translation>
-    </message>
-    <message>
-        <location filename="her_inv_main.ui" line="0"/>
-        <source>5. MONUMENT AREA AND PROTECTED ZONE</source>
-        <translation>5. MONUMENT AREA AND PROTECTED ZONE</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
@@ -1284,10 +1280,6 @@ Level 2 – sub-item; etc.</translation>
     </message>
     <message>
         <location filename="her_inv_main.ui" line="0"/>
-        <source>7. DESCRIPTIVE-CHARACTERISTIC REFERENCES</source>
-        <translation>7. DESCRIPTIVE-CHARACTERISTIC REFERENCES</translation>
-    </message>
-    <message>
         <location filename="her_inv_main.ui" line="0"/>
         <source>7. JUSTIFICATION FOR PROTECTION</source>
         <translation>7. JUSTIFICATION FOR PROTECTION</translation>
