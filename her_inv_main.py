@@ -434,7 +434,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 ['barracks', 'fortress/fortification', 'military post',
                  'shelter', 'tower', 'other'],
                 ['cathedral', 'chapel', 'church', 'gurdwara', 'monastery',
-                 'mosque', 'pagoda', 'sanctuary', 'synagogue''temple', 'other'],
+                 'mosque', 'pagoda', 'sanctuary', 'synagogue', 'temple', 'other'],
                 ['bust', 'cemetery', 'cross-stone (khachkar)', 'grave',
                  'mausoleum', 'memorial fountain', 'pantheon', 'sculpture',
                  'statue', 'tomb', 'other'],
@@ -449,7 +449,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 ['']
             ],
             'Ամսաթիվ՝': [
-                ['ակադեմիան', 'դպրոց', 'համալսարան', 'այլ'],
+                ['ակադեմիա', 'դպրոց', 'համալսարան', 'այլ'],
                 ['գրադարան', 'թանգարան', 'թատրոն', 'կինոթատրոն', 'համերգասրահ',
                  'մշակույթի տուն', 'օպերա', 'այլ'],
                 ['առևտրային կենտրոն/մոլ', 'բանկ', 'խանութ', 'համալիր',

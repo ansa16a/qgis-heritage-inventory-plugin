@@ -62,6 +62,8 @@ EXTRA_DIRS =
 
 PEP8EXCLUDE=pydev,resources.py,conf.py,third_party,ui
 
+VERSION=Version_0.3.2
+
 # QGISDIR points to the location where your plugin should be installed.
 # This varies by platform, relative to your HOME directory:
 #	* Linux:
@@ -165,12 +167,7 @@ zip: deploy dclean
 	rm -f $(PLUGINNAME).zip
 	cd $(HOME)/$(QGISDIR)/python/plugins; zip -9r $(CURDIR)/$(PLUGINNAME).zip $(PLUGINNAME)
 
-package: compile
-	# Create a zip package of the plugin named $(PLUGINNAME).zip.
-	# This requires use of git (your plugin development directory must be a
-	# git repository).
-	# To use, pass a valid commit or tag as follows:
-	#   make package VERSION=Version_0.3.2
+package:
 	@echo
 	@echo "------------------------------------"
 	@echo "Exporting plugin to zip package.	"

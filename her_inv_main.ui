@@ -332,7 +332,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>11</number>
       </property>
       <widget class="QWidget" name="tab_1">
        <attribute name="title">
@@ -461,7 +461,7 @@
                    <second>0</second>
                    <year>1999</year>
                    <month>10</month>
-                   <day>13</day>
+                   <day>10</day>
                   </datetime>
                  </property>
                  <property name="currentSection">
@@ -2673,7 +2673,7 @@ Level 2 – sub-item; etc.</string>
                      <bool>true</bool>
                     </property>
                     <property name="text">
-                     <string>District / Zone / Neighbourhood, etc.:</string>
+                     <string>District, zone, neighbourhood, etc.:</string>
                     </property>
                     <property name="scaledContents">
                      <bool>true</bool>
@@ -3955,7 +3955,7 @@ color: rgb(13, 13, 13);
         <string>5</string>
        </attribute>
        <attribute name="toolTip">
-        <string>5. MONUMENTS AND PROTECTED AREAS</string>
+        <string>5. MONUMENT AREA AND PROTECTED ZONE</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_31">
         <item>
@@ -4092,7 +4092,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4115,7 +4115,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4138,7 +4138,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4161,7 +4161,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4181,7 +4181,7 @@ color: rgb(13, 13, 13);
                         <item row="3" column="0" colspan="3">
                          <widget class="QPushButton" name="pushButton_15">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4374,7 +4374,7 @@ color: rgb(13, 13, 13);
                         <item row="0" column="0">
                          <widget class="QPushButton" name="pushButton_9">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4474,7 +4474,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4596,117 +4596,136 @@ color: rgb(13, 13, 13);
                        </layout>
                       </item>
                       <item>
-                       <widget class="QTableWidget" name="tableWidget">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>9</pointsize>
-                          <bold>false</bold>
-                          <kerning>false</kerning>
-                         </font>
-                        </property>
-                        <property name="sizeAdjustPolicy">
-                         <enum>QAbstractScrollArea::AdjustToContents</enum>
-                        </property>
-                        <property name="editTriggers">
-                         <set>QAbstractItemView::NoEditTriggers</set>
-                        </property>
-                        <property name="dragEnabled">
+                       <widget class="QScrollArea" name="scrollArea_10">
+                        <property name="widgetResizable">
                          <bool>true</bool>
                         </property>
-                        <property name="dragDropOverwriteMode">
-                         <bool>false</bool>
-                        </property>
-                        <property name="alternatingRowColors">
-                         <bool>true</bool>
-                        </property>
-                        <property name="rowCount">
-                         <number>0</number>
-                        </property>
-                        <attribute name="horizontalHeaderVisible">
-                         <bool>true</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderCascadingSectionResizes">
-                         <bool>true</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderMinimumSectionSize">
-                         <number>30</number>
-                        </attribute>
-                        <attribute name="horizontalHeaderDefaultSectionSize">
-                         <number>80</number>
-                        </attribute>
-                        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-                         <bool>true</bool>
-                        </attribute>
-                        <attribute name="verticalHeaderDefaultSectionSize">
-                         <number>24</number>
-                        </attribute>
-                        <column>
-                         <property name="text">
-                          <string>Edge</string>
+                        <widget class="QWidget" name="scrollAreaWidgetContents_10">
+                         <property name="geometry">
+                          <rect>
+                           <x>0</x>
+                           <y>0</y>
+                           <width>500</width>
+                           <height>291</height>
+                          </rect>
                          </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Segment</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Distance (m)</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Zone</string>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Easting</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Northing</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
+                         <layout class="QGridLayout" name="gridLayout_43">
+                          <item row="0" column="0">
+                           <widget class="QTableWidget" name="tableWidget">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <pointsize>9</pointsize>
+                              <bold>false</bold>
+                              <kerning>false</kerning>
+                             </font>
+                            </property>
+                            <property name="sizeAdjustPolicy">
+                             <enum>QAbstractScrollArea::AdjustToContents</enum>
+                            </property>
+                            <property name="editTriggers">
+                             <set>QAbstractItemView::NoEditTriggers</set>
+                            </property>
+                            <property name="dragEnabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="dragDropOverwriteMode">
+                             <bool>false</bool>
+                            </property>
+                            <property name="alternatingRowColors">
+                             <bool>true</bool>
+                            </property>
+                            <property name="rowCount">
+                             <number>0</number>
+                            </property>
+                            <attribute name="horizontalHeaderVisible">
+                             <bool>true</bool>
+                            </attribute>
+                            <attribute name="horizontalHeaderCascadingSectionResizes">
+                             <bool>true</bool>
+                            </attribute>
+                            <attribute name="horizontalHeaderMinimumSectionSize">
+                             <number>30</number>
+                            </attribute>
+                            <attribute name="horizontalHeaderDefaultSectionSize">
+                             <number>80</number>
+                            </attribute>
+                            <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                             <bool>true</bool>
+                            </attribute>
+                            <attribute name="verticalHeaderDefaultSectionSize">
+                             <number>24</number>
+                            </attribute>
+                            <column>
+                             <property name="text">
+                              <string>Edge</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Segment</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Distance (m)</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Zone</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Easting</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Northing</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
                        </widget>
                       </item>
                      </layout>
@@ -4786,7 +4805,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4819,7 +4838,7 @@ color: rgb(13, 13, 13);
                         <item row="0" column="1" colspan="2">
                          <widget class="QPushButton" name="pushButton_17">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4839,7 +4858,7 @@ color: rgb(13, 13, 13);
                         <item row="0" column="0">
                          <widget class="QPushButton" name="pushButton_16">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -4946,7 +4965,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -5047,7 +5066,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -5131,7 +5150,7 @@ color: rgb(13, 13, 13);
                         <item row="3" column="0" colspan="3">
                          <widget class="QPushButton" name="pushButton_22">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -5227,7 +5246,7 @@ color: rgb(13, 13, 13);
                            <bool>false</bool>
                           </property>
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -5247,117 +5266,136 @@ color: rgb(13, 13, 13);
                        </layout>
                       </item>
                       <item>
-                       <widget class="QTableWidget" name="tableWidget_1">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>9</pointsize>
-                          <bold>false</bold>
-                          <kerning>false</kerning>
-                         </font>
-                        </property>
-                        <property name="sizeAdjustPolicy">
-                         <enum>QAbstractScrollArea::AdjustToContents</enum>
-                        </property>
-                        <property name="editTriggers">
-                         <set>QAbstractItemView::NoEditTriggers</set>
-                        </property>
-                        <property name="dragEnabled">
+                       <widget class="QScrollArea" name="scrollArea_11">
+                        <property name="widgetResizable">
                          <bool>true</bool>
                         </property>
-                        <property name="dragDropOverwriteMode">
-                         <bool>false</bool>
-                        </property>
-                        <property name="alternatingRowColors">
-                         <bool>true</bool>
-                        </property>
-                        <property name="rowCount">
-                         <number>0</number>
-                        </property>
-                        <attribute name="horizontalHeaderVisible">
-                         <bool>true</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderCascadingSectionResizes">
-                         <bool>true</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderMinimumSectionSize">
-                         <number>30</number>
-                        </attribute>
-                        <attribute name="horizontalHeaderDefaultSectionSize">
-                         <number>80</number>
-                        </attribute>
-                        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-                         <bool>true</bool>
-                        </attribute>
-                        <attribute name="verticalHeaderDefaultSectionSize">
-                         <number>24</number>
-                        </attribute>
-                        <column>
-                         <property name="text">
-                          <string>Edge</string>
+                        <widget class="QWidget" name="scrollAreaWidgetContents_11">
+                         <property name="geometry">
+                          <rect>
+                           <x>0</x>
+                           <y>0</y>
+                           <width>500</width>
+                           <height>285</height>
+                          </rect>
                          </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Segment</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Distance (m)</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Zone</string>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Easting</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
-                        <column>
-                         <property name="text">
-                          <string>Northing</string>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                        </column>
+                         <layout class="QGridLayout" name="gridLayout_45">
+                          <item row="0" column="0">
+                           <widget class="QTableWidget" name="tableWidget_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <pointsize>9</pointsize>
+                              <bold>false</bold>
+                              <kerning>false</kerning>
+                             </font>
+                            </property>
+                            <property name="sizeAdjustPolicy">
+                             <enum>QAbstractScrollArea::AdjustToContents</enum>
+                            </property>
+                            <property name="editTriggers">
+                             <set>QAbstractItemView::NoEditTriggers</set>
+                            </property>
+                            <property name="dragEnabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="dragDropOverwriteMode">
+                             <bool>false</bool>
+                            </property>
+                            <property name="alternatingRowColors">
+                             <bool>true</bool>
+                            </property>
+                            <property name="rowCount">
+                             <number>0</number>
+                            </property>
+                            <attribute name="horizontalHeaderVisible">
+                             <bool>true</bool>
+                            </attribute>
+                            <attribute name="horizontalHeaderCascadingSectionResizes">
+                             <bool>true</bool>
+                            </attribute>
+                            <attribute name="horizontalHeaderMinimumSectionSize">
+                             <number>30</number>
+                            </attribute>
+                            <attribute name="horizontalHeaderDefaultSectionSize">
+                             <number>80</number>
+                            </attribute>
+                            <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                             <bool>true</bool>
+                            </attribute>
+                            <attribute name="verticalHeaderDefaultSectionSize">
+                             <number>24</number>
+                            </attribute>
+                            <column>
+                             <property name="text">
+                              <string>Edge</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Segment</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Distance (m)</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Zone</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Easting</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Northing</string>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                            </column>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
                        </widget>
                       </item>
                      </layout>
@@ -5576,7 +5614,7 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>637</width>
+                <width>878</width>
                 <height>681</height>
                </rect>
               </property>
@@ -7007,7 +7045,7 @@ color: rgb(13, 13, 13);
         <string>7</string>
        </attribute>
        <attribute name="toolTip">
-        <string>7. DESCRIPTIVE-CHARACTERISTIC REFERENCES</string>
+        <string>7. JUSTIFICATION FOR PROTECTION</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_63">
         <item row="0" column="0">
@@ -7423,7 +7461,7 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>634</width>
+                <width>898</width>
                 <height>1376</height>
                </rect>
               </property>
@@ -10619,7 +10657,7 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>595</width>
+                <width>880</width>
                 <height>999</height>
                </rect>
               </property>
@@ -11592,8 +11630,8 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>647</width>
-                <height>1116</height>
+                <width>880</width>
+                <height>1108</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_38">
@@ -13950,8 +13988,8 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>427</width>
-                <height>1689</height>
+                <width>878</width>
+                <height>1336</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -14009,6 +14047,18 @@ color: rgb(13, 13, 13);
                   </item>
                   <item>
                    <layout class="QGridLayout" name="gridLayout_53">
+                    <property name="leftMargin">
+                     <number>6</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>6</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>6</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>6</number>
+                    </property>
                     <item row="5" column="0" colspan="3">
                      <widget class="Line" name="line_8">
                       <property name="orientation">
@@ -14028,7 +14078,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -14048,6 +14098,9 @@ color: rgb(13, 13, 13);
                       <property name="wordWrap">
                        <bool>true</bool>
                       </property>
+                      <property name="indent">
+                       <number>-1</number>
+                      </property>
                      </widget>
                     </item>
                     <item row="0" column="1" colspan="2">
@@ -14055,7 +14108,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -14424,7 +14477,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -14451,7 +14504,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -14499,7 +14552,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <stylestrategy>PreferDefault</stylestrategy>
                         <kerning>false</kerning>
@@ -14810,7 +14863,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -14866,7 +14919,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -15193,7 +15246,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -15393,12 +15446,21 @@ color: rgb(13, 13, 13);
                   </item>
                   <item>
                    <layout class="QGridLayout" name="gridLayout_54">
+                    <property name="leftMargin">
+                     <number>6</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>6</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>6</number>
+                    </property>
                     <item row="0" column="1" colspan="2">
                      <widget class="QLabel" name="label_233">
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -15528,7 +15590,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -15665,7 +15727,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -15795,7 +15857,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <stylestrategy>PreferDefault</stylestrategy>
                         <kerning>false</kerning>
@@ -15932,7 +15994,7 @@ color: rgb(13, 13, 13);
                       <property name="font">
                        <font>
                         <pointsize>9</pointsize>
-                        <italic>true</italic>
+                        <italic>false</italic>
                         <bold>false</bold>
                         <kerning>false</kerning>
                        </font>
@@ -16527,8 +16589,8 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>98</width>
-                <height>86</height>
+                <width>912</width>
+                <height>609</height>
                </rect>
               </property>
               <property name="font">
@@ -16562,8 +16624,8 @@ color: rgb(13, 13, 13);
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>242</width>
-                    <height>120</height>
+                    <width>894</width>
+                    <height>591</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_82">
@@ -16577,8 +16639,8 @@ color: rgb(13, 13, 13);
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>98</width>
-                        <height>28</height>
+                        <width>874</width>
+                        <height>539</height>
                        </rect>
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -17046,6 +17108,7 @@ To enable the button register the Point of Reference on the map.</string>
   <tabstop>comboBox_6</tabstop>
   <tabstop>scrollArea_8</tabstop>
   <tabstop>groupBox_9</tabstop>
+  <tabstop>scrollArea_10</tabstop>
   <tabstop>tableWidget</tabstop>
   <tabstop>pushButton_9</tabstop>
   <tabstop>pushButton_10</tabstop>
@@ -17061,6 +17124,7 @@ To enable the button register the Point of Reference on the map.</string>
   <tabstop>radioButton_62</tabstop>
   <tabstop>radioButton_27</tabstop>
   <tabstop>groupBox_10</tabstop>
+  <tabstop>scrollArea_11</tabstop>
   <tabstop>tableWidget_1</tabstop>
   <tabstop>pushButton_16</tabstop>
   <tabstop>pushButton_17</tabstop>
