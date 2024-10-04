@@ -699,7 +699,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             text_format.setSize(9)
             layer_settings.setFormat(text_format)
             layer_settings.fieldName = '2.idin_name'
-            layer_settings.placement = 7
+            layer_settings.Placement = 7
             layer_settings.placementFlags = (
                 QgsPalLayerSettings.AboveLine | QgsPalLayerSettings.BelowLine)
             layer_settings.dist = 2
@@ -1027,7 +1027,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             window_title = 'Cambiar al Inglés'
             quit_msg = ('Está a punto de cambiar al Inglés.\nPuede ser que se '
                         'borren todos los datos introducidos en la ficha.\n\n'
-                        '¿Desea continuar con el cambio de idioma')
+                        '¿Desea continuar con el cambio de idioma?')
             button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
             _ = msg_box.addButton('No', QMessageBox.NoRole)
         msg_box.setWindowTitle(window_title)
@@ -1066,7 +1066,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             window_title = 'Cambiar al Castellano'
             quit_msg = ('Está a punto de cambiar al Castellano.\nPuede ser '
                         'que se borren todos los datos introducidos en la '
-                        'ficha.\n\n¿Desea continuar con el cambio de idioma')
+                        'ficha.\n\n¿Desea continuar con el cambio de idioma?')
             button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
             _ = msg_box.addButton('No', QMessageBox.NoRole)
         msg_box.setWindowTitle(window_title)
@@ -1155,7 +1155,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         self.label_130.setEnabled(True)
         global fnameim_1
         if self.label.text().startswith('Ամսաթիվ'):
-            caption = 'Ընտրել պատկերը'
+            caption = 'Ընտրել պատկերը '
             ext = ('Պատկերային ֆայլեր '
                    '(*.jpg *.jpeg *.png *.jfif *.tiff *.raw *.bmp)')
         elif self.label.text() == 'Date:':
