@@ -1,6 +1,6 @@
 from qgis.gui import QgsMapToolEmitPoint
 from qgis.core import (
-    QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsMapLayer,
+    QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsMapLayer, Qgis,
     QgsSimpleMarkerSymbolLayer, QgsMarkerLineSymbolLayer, QgsSymbolLayer,
     QgsProperty, QgsSimpleFillSymbolLayer, QgsMarkerSymbol, QgsDistanceArea,
     QgsProject, QgsFillSymbol, QgsCoordinateTransformContext, QgsGeometry,
@@ -960,7 +960,7 @@ def numbering_style_white_MA(self):
 
     # markerline white circle
     markerLine2 = QgsMarkerLineSymbolLayer.create()
-    markerLine2.setPlacement(1)
+    markerLine2.setPlacement(Qgis.MarkerLinePlacement.Vertex)
     lyr1.renderer().symbol().appendSymbolLayer(markerLine2)
     base_color = QgsSimpleMarkerSymbolLayer(
         shape=QgsSimpleMarkerSymbolLayer.Circle,
@@ -975,7 +975,7 @@ def numbering_style_white_MA(self):
 
     # markerLine numbers
     markerLine = QgsMarkerLineSymbolLayer.create()
-    markerLine.setPlacement(1)
+    markerLine.setPlacement(Qgis.MarkerLinePlacement.Vertex)
     markerLine.setRotateMarker(False)
     lyr1.renderer().symbol().appendSymbolLayer(markerLine)
     symb_numbering = QgsFontMarkerSymbolLayer(
@@ -1025,7 +1025,7 @@ def numbering_style_white_PA(self):
 
     # markerline white circle
     markerLine2 = QgsMarkerLineSymbolLayer.create()
-    markerLine2.setPlacement(1)
+    markerLine2.setPlacement(Qgis.MarkerLinePlacement.Vertex)
     layer.renderer().symbol().appendSymbolLayer(markerLine2)
     base_color = QgsSimpleMarkerSymbolLayer(
         shape=QgsSimpleMarkerSymbolLayer.Circle,
@@ -1040,7 +1040,7 @@ def numbering_style_white_PA(self):
 
     # markerLine numbers
     markerLine = QgsMarkerLineSymbolLayer.create()
-    markerLine.setPlacement(1)
+    markerLine.setPlacement(Qgis.MarkerLinePlacement.Vertex)
     markerLine.setRotateMarker(False)
     layer.renderer().symbol().appendSymbolLayer(markerLine)
     symb_numbering = QgsFontMarkerSymbolLayer(

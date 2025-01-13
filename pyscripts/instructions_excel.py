@@ -2,6 +2,7 @@ from qgis.PyQt import uic
 import os
 from PyQt5.QtWidgets import QDialog, QFileDialog, QTableWidgetItem, QMessageBox
 import xlrd
+import openpyxl
 import re
 
 # Load the .ui file
@@ -75,7 +76,7 @@ class InstructionsExcel(QDialog, FORM_CLASS):
                 for row in range(1, numRows):
                     self.table_widget.removeRow(1)
                 self.delete_polygon(
-                    self.main_instance, self.main_instance.layer_name)
+                    self.main_instance, self.layer_name)
                 if self.layer_name == 'Monument_Area':
                     self.line_edit1.clear()
                     self.line_edit2.clear()
@@ -88,11 +89,14 @@ class InstructionsExcel(QDialog, FORM_CLASS):
                     self.table_widget.setItem(0, 2, QTableWidgetItem(''))
 
             # Open the Excel file and read data from the first sheet
-            book = xlrd.open_workbook(path)
-            sheet = book.sheets()[0]
-            data = [[sheet.cell_value(r, c) for c in range(sheet.ncols)] for r in range(sheet.nrows)]
+            book = openpyxl.load_workbook(path)
+            sheet = book.active # Select the first sheet by default
+            data = [
+                [sheet.cell(row=r + 1, column=c + 1).value for c in range(sheet.max_column)]
+                for r in range(sheet.max_row)
+                if any(sheet.cell(row=r + 1, column=c + 1).value for c in range(sheet.max_column))]
             # Check if there are at least 3 columns with information
-            if len(data) < 3:
+            if len(data[0]) < 3:
                 # Write a warning message and do not populate the table
                 msg_box = QMessageBox()
                 if self.label_21.text() == 'Օրինակ՝':
@@ -120,10 +124,10 @@ class InstructionsExcel(QDialog, FORM_CLASS):
                 # Check each cell in the first column to ensure it matches
                 # the required format
                 invalid_format = False
-                for row, columnvalues in enumerate(data):
+                for columnvalues in data:
                     value = columnvalues[0]  # Get value of column 1 (Excel)
                     if (not isinstance(value, str) or
-                            not re.match(r'^[NnSsՀհվս]\s\d{1,2}[A-Za-z]$',
+                            not re.match(r'^(?:[NnSs]|[Հհ][սվ])\s\d{1,2}[A-Za-z]$',
                             value)):
                         invalid_format = True
                         break
