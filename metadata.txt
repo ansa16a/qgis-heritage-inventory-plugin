@@ -3,7 +3,7 @@ name=Heritage Inventory
 qgisMinimumVersion=3.0
 description=Digitally register, manage, and visualise heritage resource data with this inventory worksheet plugin.
 
-version=2.3
+version=2.4
 author=Anna Sanasaryan
 email=ansa16a@upv.edu.es
 
@@ -14,8 +14,9 @@ about=The Heritage Inventory Plugin simplifies the management of heritage resour
 	Streamline your heritage conservation efforts.
 
 changelog= 	2.1 - The home page is the first tab.
-		2.2 - Improved translation accuracy
+		2.2 - Improved translation accuracy.
 		2.3 - Fixed TypeError caused by changes in QGIS API in newer versions.
+		2.4 - Fixed errors caused when importing Excel files.
 
 tracker=https://github.com/ansa16a/qgis-heritage-inventory-plugin/issues
 repository=https://github.com/ansa16a/qgis-heritage-inventory-plugin/
