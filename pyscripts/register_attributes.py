@@ -1,7 +1,7 @@
 import os
 from .utils import change_attribute_values
 from qgis.core import QgsProject, QgsField
-from PyQt5.QtCore import QVariant
+from qgis.PyQt.QtCore import QVariant
 from .image_loader import ImageLoader_1
 import shutil
 

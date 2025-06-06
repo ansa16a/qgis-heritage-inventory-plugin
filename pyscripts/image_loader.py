@@ -1,9 +1,9 @@
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QFrame, QGridLayout, QCheckBox, QFileDialog
+from qgis.PyQt import QtCore, QtGui, QtWidgets
+from qgis.PyQt.QtWidgets import QWidget, QFrame, QGridLayout, QCheckBox, QFileDialog
 from qgis.core import QgsField, QgsEditorWidgetSetup
-from PyQt5.QtCore import QVariant, QCoreApplication
-from PyQt5.QtGui import QPixmap
+from qgis.PyQt.QtCore import QVariant, QCoreApplication
+from qgis.PyQt.QtGui import QPixmap
 import re
 
 

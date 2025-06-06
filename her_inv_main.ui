@@ -461,7 +461,7 @@
                    <second>0</second>
                    <year>1999</year>
                    <month>10</month>
-                   <day>9</day>
+                   <day>8</day>
                   </datetime>
                  </property>
                  <property name="currentSection">
@@ -4002,7 +4002,7 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>588</width>
+                <width>878</width>
                 <height>861</height>
                </rect>
               </property>
@@ -4605,8 +4605,8 @@ color: rgb(13, 13, 13);
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>98</width>
-                           <height>88</height>
+                           <width>500</width>
+                           <height>291</height>
                           </rect>
                          </property>
                          <layout class="QGridLayout" name="gridLayout_43">
@@ -5275,8 +5275,8 @@ color: rgb(13, 13, 13);
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>98</width>
-                           <height>88</height>
+                           <width>500</width>
+                           <height>285</height>
                           </rect>
                          </property>
                          <layout class="QGridLayout" name="gridLayout_45">
@@ -5614,7 +5614,7 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>637</width>
+                <width>878</width>
                 <height>681</height>
                </rect>
               </property>
@@ -7461,7 +7461,7 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>634</width>
+                <width>898</width>
                 <height>1376</height>
                </rect>
               </property>
@@ -10657,7 +10657,7 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>595</width>
+                <width>880</width>
                 <height>999</height>
                </rect>
               </property>
@@ -11630,8 +11630,8 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>647</width>
-                <height>1116</height>
+                <width>880</width>
+                <height>1108</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_38">
@@ -13988,8 +13988,8 @@ color: rgb(13, 13, 13);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>437</width>
-                <height>1704</height>
+                <width>878</width>
+                <height>1336</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4">

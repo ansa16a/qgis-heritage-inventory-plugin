@@ -9,7 +9,7 @@
         begin                : 2023-02-27
         git sha              : $Format:%H$
         copyright            : (C) 2023 by Anna Sanasaryan
-        email                : ansa16a@upv.edu.es
+        email                : ansa16a@upv.edu.es, annasanasaryan@gmail.com
  ***************************************************************************/
 
 /***************************************************************************

@@ -10,7 +10,7 @@
         begin                : 2023-02-27
         git sha              : $Format:%H$
         copyright            : (C) 2023 by Anna Sanasaryan
-        email                : ansa16a@upv.edu.es
+        email                : ansa16a@upv.edu.es, annasanasaryan@gmail.com
  ***************************************************************************/
 
 /***************************************************************************
@@ -33,14 +33,14 @@ from qgis.core import (
     QgsPalLayerSettings, QgsField, QgsVectorFileWriter, QgsFields,
     QgsCoordinateTransformContext
 )
-from PyQt5.QtGui import QPixmap, QRegExpValidator, QFont, QColor, QCloseEvent
-from PyQt5 import QtCore
-from PyQt5.QtCore import (
-    QLocale, QFileInfo, QTranslator, QCoreApplication, QRegExp, QVariant, Qt,
-    QObject
+from qgis.PyQt.QtGui import QPixmap, QRegularExpressionValidator, QFont, QColor
+from qgis.PyQt import QtCore
+from qgis.PyQt.QtCore import (
+    QLocale, QFileInfo, QTranslator, QCoreApplication, QRegularExpression,
+    QVariant, Qt
 )
 from qgis.utils import iface
-from PyQt5.QtWidgets import (
+from qgis.PyQt.QtWidgets import (
     QWidget, QMessageBox, QFileDialog, QMainWindow, QCheckBox, QFrame,
     QTreeWidgetItem
 )
@@ -374,24 +374,24 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
     def init_lineEdit_validator(self):
         """Allow the use of only certain characters in lineEdits."""
 
-        self.lineEdit.setValidator(QRegExpValidator(QRegExp(r"^[^\d]+$")))
-        self.lineEdit_2.setValidator(QRegExpValidator(QRegExp(r"^[^\d]+$")))
-        self.lineEdit_4.setValidator(QRegExpValidator(QRegExp(r"^[^\d]+$")))
-        self.lineEdit_5.setValidator(QRegExpValidator(QRegExp(r"^[^\d]+$")))
-        self.lineEdit_7.setValidator(QRegExpValidator(QRegExp('[0-9-]+')))
-        self.lineEdit_12.setValidator(QRegExpValidator(QRegExp('[0-9]+')))
-        self.lineEdit_20.setValidator(QRegExpValidator(QRegExp(r"^[^\d]+$")))
-        self.lineEdit_19.setValidator(QRegExpValidator(QRegExp('[0-9]+')))
-        self.lineEdit_21.setValidator(QRegExpValidator(QRegExp(r"^[^\d]+$")))
-        self.lineEdit_22.setValidator(QRegExpValidator(QRegExp(r"^[^\d]+$")))
-        self.lineEdit_29.setValidator(QRegExpValidator(
-            QRegExp('([1-9]|[1-5][0-9]|60)')))
-        self.lineEdit_30.setValidator(QRegExpValidator(QRegExp('[0-9]+')))
-        self.lineEdit_31.setValidator(QRegExpValidator(QRegExp('[0-9]+')))
+        self.lineEdit.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_2.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_4.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_5.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_7.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9-]+')))
+        self.lineEdit_12.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
+        self.lineEdit_20.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_19.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
+        self.lineEdit_21.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_22.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_29.setValidator(QRegularExpressionValidator(
+            QRegularExpression('([1-9]|[1-5][0-9]|60)')))
+        self.lineEdit_30.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
+        self.lineEdit_31.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
         self.lineEdit_34.setValidator(
-            QRegExpValidator(QRegExp('[0-9]+\\.?[0-9]*')))
+            QRegularExpressionValidator(QRegularExpression('[0-9]+\\.?[0-9]*')))
         self.lineEdit_35.setValidator(
-            QRegExpValidator(QRegExp('[0-9]+\\.?[0-9]*')))
+            QRegularExpressionValidator(QRegularExpression('[0-9]+\\.?[0-9]*')))
 
     def init_dateEdit_setLocale(self):
         """
@@ -542,8 +542,8 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         current_text = self.comboBox.currentText()
         if current_text == "X":
             # Prevent lineEdit_29 from accepting values 32, 34, 36
-            regex = QRegExp("(?!32|34|36).*")  # Restrict input except for 32, 34, and 36
-            validator = QRegExpValidator(regex)
+            regex = QRegularExpression("(?!32|34|36).*")  # Restrict input except for 32, 34, and 36
+            validator = QRegularExpressionValidator(regex)
             self.lineEdit_29.setValidator(validator)
         else:
             # Allow lineEdit_29 to accept values 32, 34, 36

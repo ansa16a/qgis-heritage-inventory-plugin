@@ -6,11 +6,11 @@ from qgis.core import (
     QgsProject, QgsFillSymbol, QgsCoordinateTransformContext, QgsGeometry,
     QgsVectorDataProvider, QgsFeature, QgsPointXY, QgsFontMarkerSymbolLayer
 )
-from PyQt5.QtGui import QColor
-from PyQt5 import QtCore
-from PyQt5.QtCore import QPointF
+from qgis.PyQt.QtGui import QColor
+from qgis.PyQt import QtCore
+from qgis.PyQt.QtCore import QPointF
 from qgis.utils import iface
-from PyQt5.QtWidgets import (
+from qgis.PyQt.QtWidgets import (
     QMessageBox, QFileDialog, QTableWidgetItem, QHeaderView
 )
 import xlwt
@@ -1869,13 +1869,19 @@ def move_row_down(self, table_widget, layer_name):
 def move_row_down_MA(self):
     """Move the selected row down in the Monument Area tableWidget."""
 
-    move_row_down(self, self.tableWidget, 'Monument_Area')
+    if not self.tableWidget.selectedItems():
+        return  # No selection, do nothing
+    else:
+        move_row_down(self, self.tableWidget, 'Monument_Area')
 
 
 def move_row_down_PA(self):
     """Move the selected row down in the Protected Area tableWidget."""
 
-    move_row_down(self, self.tableWidget_1, 'Protected_Area')
+    if not self.tableWidget_1.selectedItems():
+        return  # No selection, do nothing
+    else:
+        move_row_down(self, self.tableWidget_1, 'Protected_Area')
 
 
 def move_row_up(self, table_widget, layer_name):
@@ -1917,13 +1923,19 @@ def move_row_up(self, table_widget, layer_name):
 def move_row_up_MA(self):
     """Move the selected row up in the Monument Area table."""
 
-    move_row_up(self, self.tableWidget, 'Monument_Area')
+    if not self.tableWidget.selectedItems():
+        return  # No selection, do nothing
+    else:
+        move_row_up(self, self.tableWidget, 'Monument_Area')
 
 
 def move_row_up_PA(self):
     """Move the selected row up in the Protected Area table."""
 
-    move_row_up(self, self.tableWidget_1, 'Protected_Area')
+    if not self.tableWidget_1.selectedItems():
+        return  # No selection, do nothing
+    else:
+        move_row_up(self, self.tableWidget_1, 'Protected_Area')
 
 
 def input_polygon_coords(self, add_point_func, finish_adding_points_func):

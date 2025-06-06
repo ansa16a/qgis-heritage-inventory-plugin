@@ -1,6 +1,6 @@
 from qgis.PyQt import uic
 import os
-from PyQt5.QtWidgets import QDialog, QFileDialog, QTableWidgetItem, QMessageBox
+from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QTableWidgetItem, QMessageBox
 import xlrd
 import openpyxl
 import re
@@ -53,6 +53,16 @@ class InstructionsExcel(QDialog, FORM_CLASS):
         self.pushButton.clicked.connect(self.closeEvent)
         self.pushButton_2.clicked.connect(self.load_excel)
 
+    def get_language_key(self):
+        label_text = self.label_21.text()
+        if label_text == 'Օրինակ՝':
+            return 'hy'  # Armenian
+        elif label_text == 'Example:':
+            return 'en'  # English
+        elif label_text == 'Ejemplo:':
+            return 'es'  # Spanish
+        return 'en'  # Default to English
+
     def closeEvent(self, event):
         """Handle the close event."""
 
@@ -61,16 +71,50 @@ class InstructionsExcel(QDialog, FORM_CLASS):
     def load_excel(self):
         """Load data from an Excel file."""
 
-        title = ''
-        if self.label_21.text() == 'Օրինակ՝':
-            title = 'Ընտրել համապատասխան Excel ֆայլը'
-        elif self.label_21.text() == 'Example:':
-            title = 'Select the corresponding Excel file'
-        elif self.label_21.text() == 'Ejemplo:':
-            title = 'Seleccionar el archivo Excel correspondiente'
+        lang = self.get_language_key()
+
+        messages = {
+            'select_excel': {
+                'hy': 'Ընտրել համապատասխան Excel ֆայլը',
+                'en': 'Select the corresponding Excel file',
+                'es': 'Seleccionar el archivo Excel correspondiente'
+            },
+            'insufficient_data': {
+                'hy': 'Տվյալները բացակայում են կամ բավարար չեն։\nExcel ֆայլը '\
+                    'պետք է պարունակի տեղեկատվություն առաջին երեք '\
+                    'սյունակներում:',
+                'en': 'Missing or insufficient data.\nThe Excel file must '\
+                    'contain information in the first three columns.',
+                'es': 'Faltan datos o son insuficientes.\nEl fichero Excel '\
+                    'debe contener información en las tres primeras columnas.'
+            },
+            'invalid_format': {
+                'hy': 'Առաջին սյունակի տվյալների ձևաչափը վավեր չէ:',
+                'en': 'The format of data in the first column is not valid.',
+                'es': 'El formato de los datos de la primera columna no es válido.'
+            },
+            'min_points_required': {
+                'hy': 'Գրանցման համար անհրաժեշտ է առնվազն 3 կետ։',
+                'en': 'A minimum of 3 points is required to be registered.',
+                'es': 'Se requiere un mínimo de 3 puntos para ser registrado.'
+            },
+            'warning_title': {
+                'hy': 'Ուշադրություն',
+                'en': 'Warning',
+                'es': 'Atención'
+            }
+        }
+
+        title = messages['select_excel'][lang]
+        msg_box = QMessageBox()
+        msg_box.information(
+            self, messages['warning_title'][lang],
+            messages['select_excel'][lang])
+
         path, _ = QFileDialog.getOpenFileName(
             self, title, '', 'Excel (*.xlsx *xls)')
         if path:
+            # Clear old data
             if self.table_widget.rowCount() != 1:
                 numRows = self.table_widget.rowCount()
                 for row in range(1, numRows):
@@ -88,38 +132,38 @@ class InstructionsExcel(QDialog, FORM_CLASS):
                     self.table_widget.setItem(0, 1, QTableWidgetItem(''))
                     self.table_widget.setItem(0, 2, QTableWidgetItem(''))
 
-            # Open the Excel file and read data from the first sheet
-            book = openpyxl.load_workbook(path)
-            sheet = book.active # Select the first sheet by default
-            data = [
-                [sheet.cell(row=r + 1, column=c + 1).value for c in range(sheet.max_column)]
-                for r in range(sheet.max_row)
-                if any(sheet.cell(row=r + 1, column=c + 1).value for c in range(sheet.max_column))]
+            # --- Read Excel file (.xlsx or .xls) ---
+            ext = os.path.splitext(path)[-1].lower()
+            # Read data from Excel depending on file extension
+            if ext == '.xlsx':
+                book = openpyxl.load_workbook(path)
+                sheet = book.active
+                data = [
+                    [sheet.cell(row=r + 1, column=c + 1).value for c in range(
+                        sheet.max_column)]
+                    for r in range(sheet.max_row)
+                    if any(
+                        sheet.cell(
+                            row=r + 1, column=c + 1
+                            ).value for c in range(sheet.max_column))
+                ]
+            elif ext == '.xls':
+                book = xlrd.open_workbook(path)
+                sheet = book.sheet_by_index(0)
+                data = [
+                    [sheet.cell_value(r, c) for c in range(sheet.ncols)]
+                    for r in range(sheet.nrows)
+                    if any(sheet.cell_value(r, c) for c in range(sheet.ncols))
+                ]
+            else:
+                return  # unsupported file
+
             # Check if there are at least 3 columns with information
-            if len(data[0]) < 3:
+            if any(len(row) < 3 or not all(row[i] for i in range(3)) for row in data):
                 # Write a warning message and do not populate the table
-                msg_box = QMessageBox()
-                if self.label_21.text() == 'Օրինակ՝':
-                    msg_box.information(
-                        self,
-                        'Ուշադրություն',
-                        'Տվյալները բացակայում են կամ բավարար չեն։\n'
-                        'Excel ֆայլը պետք է պարունակի տեղեկատվություն առաջին '
-                        'երեք սյունակներում:')
-                elif self.label_21.text() == 'Example:':
-                    msg_box.information(
-                        self,
-                        'Warning',
-                        'Missing or insufficient data.\n'
-                        'The Excel file must contain information in the first '
-                        'three columns.')
-                elif self.label_21.text() == 'Ejemplo:':
-                    msg_box.information(
-                        self,
-                        'Atención',
-                        'Faltan datos o son insuficientes.\n'
-                        'El fichero Excel debe contener información en las '
-                        'tres primeras columnas.')
+                QMessageBox.information(
+                    self, messages['warning_title'][lang],
+                    messages['insufficient_data'][lang])
             else:
                 # Check each cell in the first column to ensure it matches
                 # the required format
@@ -134,24 +178,9 @@ class InstructionsExcel(QDialog, FORM_CLASS):
                 # If the format is not valid, write a warning message
                 # and do not populate the table
                 if invalid_format:
-                    msg_box = QMessageBox()
-                    if self.label_21.text() == 'Օրինակ՝':
-                        msg_box.information(
-                            self,
-                            'Ուշադրություն',
-                            'Առաջին սյունակի տվյալների ձևաչափը վավեր չէ:')
-                    elif self.label_21.text() == 'Example:':
-                        msg_box.information(
-                            self,
-                            'Warning',
-                            'The format of data in the first column is not '
-                            'valid.')
-                    elif self.label_21.text() == 'Ejemplo:':
-                        msg_box.information(
-                            self,
-                            'Atención',
-                            'El formato de los datos de la primera columna no '
-                            'es válido.')
+                    QMessageBox.information(
+                        self, messages['warning_title'][lang],
+                        messages['invalid_format'][lang])
                 else:
                     max_row = len(data)
                     # Check if the number of rows is less than 3
@@ -160,24 +189,9 @@ class InstructionsExcel(QDialog, FORM_CLASS):
                         self.push_button_2.setDisabled(True)
                     # Check if the number of rows is less than 4
                     if max_row < 4:
-                        msg_box = QMessageBox()
-                        if self.label_21.text() == 'Օրինակ՝':
-                            msg_box.information(
-                                self,
-                                'Ուշադրություն',
-                                'Գրանցման համար անհրաժեշտ է առնվազն 3 կետ։')
-                        elif self.label_21.text() == 'Example:':
-                            msg_box.information(
-                                self,
-                                'Warning',
-                                'A minimum of 3 points is required to be '
-                                'registered.')
-                        elif self.label_21.text() == 'Ejemplo:':
-                            msg_box.information(
-                                self,
-                                'Atención',
-                                'Se requiere un mínimo de 3 puntos para ser '
-                                'registrado.')
+                        QMessageBox.information(
+                            self, messages['warning_title'][lang],
+                            messages['min_points_required'][lang])
                         # Clear all rows except the first one
                         self.clear_all_rows(
                             self.main_instance, self.table_widget,

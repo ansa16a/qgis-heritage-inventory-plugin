@@ -1,8 +1,8 @@
 from qgis.PyQt import uic
 import os
-from PyQt5.QtWidgets import QDialog, QMessageBox
-from PyQt5.QtGui import QRegExpValidator
-from PyQt5.QtCore import QRegExp
+from qgis.PyQt.QtWidgets import QDialog, QMessageBox
+from qgis.PyQt.QtGui import QRegularExpressionValidator
+from qgis.PyQt.QtCore import QRegularExpression
 from .point_and_polygons import (
     distance_calc, add_point_2_tableMA, add_point_2_tablePA, numbering)
 
@@ -28,13 +28,13 @@ class AddPointPoly(QDialog, FORM_CLASS):
         # Connect the accepted and rejected signals of the button box to slots
         # Only allows inputing numbers and '.' characters
         self.lineEdit.setValidator(
-            QRegExpValidator(QRegExp('([1-9]|[1-5][0-9]|60)')))
+            QRegularExpressionValidator(QRegularExpression('([1-9]|[1-5][0-9]|60)')))
         # Only allows inputing numbers and . characters
         self.lineEdit_2.setValidator(
-            QRegExpValidator(QRegExp('[0-9]+\\.?[0-9]*')))
+            QRegularExpressionValidator(QRegularExpression('[0-9]+\\.?[0-9]*')))
         # Only allows inputing numbers and . characters
         self.lineEdit_3.setValidator(
-            QRegExpValidator(QRegExp('[0-9]+\\.?[0-9]*')))
+            QRegularExpressionValidator(QRegularExpression('[0-9]+\\.?[0-9]*')))
 
         self.pushButton.clicked.connect(self.AddRow)
         self.pushButton_2.clicked.connect(self.clearAndFocus)
