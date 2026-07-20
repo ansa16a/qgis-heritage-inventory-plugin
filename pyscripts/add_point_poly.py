@@ -69,7 +69,8 @@ class AddPointPoly(QDialog, FORM_CLASS):
         """
 
         main = self.main_instance
-        if not (self.lineEdit.text() and
+        if not (
+                self.lineEdit.text() and
                 self.comboBox.currentIndex() != 0 and
                 self.lineEdit_2.text() and
                 self.lineEdit_3.text() and
@@ -109,7 +110,7 @@ class AddPointPoly(QDialog, FORM_CLASS):
         """
 
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('UTM գոտի'):
             msg_box.information(
                 self,

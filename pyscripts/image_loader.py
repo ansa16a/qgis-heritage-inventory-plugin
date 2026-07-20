@@ -1,8 +1,10 @@
 import sys
 from qgis.PyQt import QtCore, QtGui, QtWidgets
-from qgis.PyQt.QtWidgets import QWidget, QFrame, QGridLayout, QCheckBox, QFileDialog
+from qgis.PyQt.QtWidgets import (
+    QWidget, QFrame, QGridLayout, QCheckBox, QFileDialog
+)
 from qgis.core import QgsField, QgsEditorWidgetSetup
-from qgis.PyQt.QtCore import QVariant, QCoreApplication
+from qgis.PyQt.QtCore import QVariant, QCoreApplication, Qt
 from qgis.PyQt.QtGui import QPixmap
 import re
 
@@ -82,9 +84,9 @@ class Ui_Form(object):
         font.setPointSize(9)
         self.label_2.setFont(font)
         self.label_2.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight |
-            QtCore.Qt.AlignmentFlag.AlignTrailing |
-            QtCore.Qt.AlignmentFlag.AlignVCenter)
+            Qt.AlignmentFlag.AlignRight |
+            Qt.AlignmentFlag.AlignTrailing |
+            Qt.AlignmentFlag.AlignVCenter)
         self.label_2.setObjectName("label_2")
 
         self.gridLayout.addWidget(self.label_2, 10, 0, 2, 1)
@@ -99,9 +101,9 @@ class Ui_Form(object):
         self.label_7.setAutoFillBackground(True)
         self.label_7.setScaledContents(True)
         self.label_7.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight |
-            QtCore.Qt.AlignmentFlag.AlignTrailing |
-            QtCore.Qt.AlignmentFlag.AlignVCenter)
+            Qt.AlignmentFlag.AlignRight |
+            Qt.AlignmentFlag.AlignTrailing |
+            Qt.AlignmentFlag.AlignVCenter)
         self.label_7.setWordWrap(True)
         self.label_7.setObjectName("label_7")
 
@@ -116,9 +118,9 @@ class Ui_Form(object):
         self.label_4.setAutoFillBackground(True)
         self.label_4.setScaledContents(True)
         self.label_4.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight |
-            QtCore.Qt.AlignmentFlag.AlignTrailing |
-            QtCore.Qt.AlignmentFlag.AlignVCenter)
+            Qt.AlignmentFlag.AlignRight |
+            Qt.AlignmentFlag.AlignTrailing |
+            Qt.AlignmentFlag.AlignVCenter)
         self.label_4.setWordWrap(True)
         self.label_4.setObjectName("label_4")
 
@@ -155,9 +157,9 @@ class Ui_Form(object):
         self.label_5.setAutoFillBackground(True)
         self.label_5.setScaledContents(True)
         self.label_5.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight |
-            QtCore.Qt.AlignmentFlag.AlignTrailing |
-            QtCore.Qt.AlignmentFlag.AlignVCenter)
+            Qt.AlignmentFlag.AlignRight |
+            Qt.AlignmentFlag.AlignTrailing |
+            Qt.AlignmentFlag.AlignVCenter)
         self.label_5.setWordWrap(True)
         self.label_5.setObjectName("label_5")
 
@@ -183,9 +185,9 @@ class Ui_Form(object):
         self.label_3.setAutoFillBackground(True)
         self.label_3.setScaledContents(True)
         self.label_3.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight |
-            QtCore.Qt.AlignmentFlag.AlignTrailing |
-            QtCore.Qt.AlignmentFlag.AlignVCenter)
+            Qt.AlignmentFlag.AlignRight |
+            Qt.AlignmentFlag.AlignTrailing |
+            Qt.AlignmentFlag.AlignVCenter)
         self.label_3.setWordWrap(True)
         self.label_3.setObjectName("label_3")
 
@@ -200,9 +202,9 @@ class Ui_Form(object):
         self.label_6.setAutoFillBackground(True)
         self.label_6.setScaledContents(True)
         self.label_6.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight |
-            QtCore.Qt.AlignmentFlag.AlignTrailing |
-            QtCore.Qt.AlignmentFlag.AlignVCenter)
+            Qt.AlignmentFlag.AlignRight |
+            Qt.AlignmentFlag.AlignTrailing |
+            Qt.AlignmentFlag.AlignVCenter)
         self.label_6.setWordWrap(True)
         self.label_6.setObjectName("label_6")
 
@@ -243,7 +245,9 @@ class Ui_Form(object):
         font.setPointSize(9)
         self.label_8.setFont(font)
         self.label_8.setAlignment(
-            QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+            Qt.AlignmentFlag.AlignRight |
+            Qt.AlignmentFlag.AlignTrailing |
+            Qt.AlignmentFlag.AlignVCenter)
         self.label_8.setObjectName("label_8")
 
         self.gridLayout.addWidget(self.label_8, 8, 0, 1, 1)
@@ -270,7 +274,8 @@ class Ui_Form(object):
         """Create a vertical layout."""
 
         self.frame_4 = QFrame(self.scrollAreaWidgetContents_6)
-        self.frame_4.setFrameStyle(QFrame.StyledPanel | QFrame.Raised)
+        self.frame_4.setFrameStyle(
+            QFrame.Shape.StyledPanel | QFrame.Shadow.Raised)
         self.frame_4.setObjectName("frame_4")
 
         self.gridLayout_25 = QGridLayout(self.frame_4)
@@ -310,7 +315,7 @@ if __name__ == "__main__":
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 class ImageLoader_1(QWidget, Ui_Form):
@@ -327,7 +332,7 @@ class ImageLoader_1(QWidget, Ui_Form):
         """Browse for an image file and display it on the provided label."""
 
         file_dialog = QFileDialog()
-        file_dialog.setFileMode(QFileDialog.ExistingFile)
+        file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
         global fnameim_
 
         ext = '(*.jpg *.jpeg *.png *.jfif *.tiff *.raw *.bmp)'
@@ -339,7 +344,8 @@ class ImageLoader_1(QWidget, Ui_Form):
             # Find the layout of the frame containing the label
             frame_layout = label.parent().layout()
             if frame_layout:
-                # Traverse through all child widgets of the frame and its descendants
+                # Traverse through all child widgets of the frame
+                # and its descendants
                 line_edit_5 = ImageLoader_1.find_lineEdit_5(frame_layout)
                 if line_edit_5:
                     line_edit_5.setText(fnameim_)
@@ -444,7 +450,7 @@ class ImageLoader_1(QWidget, Ui_Form):
         Ui_Form.image_count += 1
 
         new_frame_4 = QFrame()
-        new_frame_4.setFrameStyle(QFrame.StyledPanel | QFrame.Raised)
+        new_frame_4.setFrameStyle(QFrame.Shape.StyledPanel | QFrame.Shadow.Raised)
 
         new_grid_layout_25 = QGridLayout(new_frame_4)
         new_grid_layout_40 = QGridLayout()
@@ -465,7 +471,8 @@ class ImageLoader_1(QWidget, Ui_Form):
         new_grid_layout_25.addLayout(
             new_grid_layout_40, gridLayout.rowCount(), 0, 1, 1)
 
-        # Disconnect the signal-slot connection for the browse button in the original layout
+        # Disconnect the signal-slot connection for
+        # the browse button in the original layout
         browse_button = new_frame_4.findChild(
             QtWidgets.QPushButton, 'pushButton_1')
         if browse_button:
@@ -714,7 +721,8 @@ class ImageLoader_1(QWidget, Ui_Form):
         if text_edit_1:
             return text_edit_1
 
-        # If textEdit_1 is not found in the current layout, search in its child layouts
+        # If textEdit_1 is not found in the current layout,
+        # search in its child layouts
         for i in range(layout.count()):
             item = layout.itemAt(i)
             if isinstance(item, QtWidgets.QWidgetItem):

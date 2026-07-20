@@ -1,14 +1,13 @@
 from qgis.gui import QgsMapToolEmitPoint
 from qgis.core import (
-    QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsMapLayer, Qgis,
+    Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsMapLayer,
     QgsSimpleMarkerSymbolLayer, QgsMarkerLineSymbolLayer, QgsSymbolLayer,
     QgsProperty, QgsSimpleFillSymbolLayer, QgsMarkerSymbol, QgsDistanceArea,
     QgsProject, QgsFillSymbol, QgsCoordinateTransformContext, QgsGeometry,
     QgsVectorDataProvider, QgsFeature, QgsPointXY, QgsFontMarkerSymbolLayer
 )
 from qgis.PyQt.QtGui import QColor
-from qgis.PyQt import QtCore
-from qgis.PyQt.QtCore import QPointF
+from qgis.PyQt.QtCore import QPointF, Qt
 from qgis.utils import iface
 from qgis.PyQt.QtWidgets import (
     QMessageBox, QFileDialog, QTableWidgetItem, QHeaderView
@@ -23,10 +22,17 @@ def change_crs_to_EPSG_3857(self):
     Tab '4'. Section 4.2. Set CRS to EPSG: 3857.
     """
 
-    change_crs('EPSG:3857')
-    project_crs = self.canvas.mapSettings().destinationCrs()
-    self.lineEdit_27.setText(project_crs.description())
-    self.lineEdit_28.setText(project_crs.authid())
+    # Get all layers
+    layers = list(QgsProject.instance().mapLayers().values())
+    if layers:
+        change_crs('EPSG:3857')
+        # Display the CRS of the first layer to confirm
+        layer_crs = layers[0].crs()
+        self.lineEdit_27.setText(layer_crs.description())
+        self.lineEdit_28.setText(layer_crs.authid())
+    else:
+        self.lineEdit_27.setText("No layers")
+        self.lineEdit_28.setText("No layers")
 
 
 def add_to_the_point_cloud(self):
@@ -46,7 +52,7 @@ def add_to_the_point_cloud(self):
         name.append(layer.name())
     if any(x == 'Representative_Point' for x in name):
         layer = QgsProject.instance().mapLayersByName('Representative_Point')[0]
-        if layer.type() == QgsMapLayer.VectorLayer:
+        if layer.type() == Qgis.LayerType.Vector:
             caps = layer.dataProvider().capabilities()
             feat = QgsFeature(layer.fields())
             # if lineedits are empty
@@ -57,7 +63,7 @@ def add_to_the_point_cloud(self):
                 (self.radioButton_6.isChecked() is False and
                     self.radioButton_7.isChecked() is False)):
                 msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Information)
+                msg_box.setIcon(QMessageBox.Icon.Information)
                 if self.label.text().startswith('Ամսաթիվ'):
                     window_title = 'Բացակայում են կոորդինատների մանրամասները'
                     quit_msg = (
@@ -65,7 +71,7 @@ def add_to_the_point_cloud(self):
                             'Խնդրում ենք մուտքագրել կոորդինատների '
                             'բացակայող տվյալները։')
                     button_Yes = msg_box.addButton(
-                        'Շարունակել', QMessageBox.YesRole)
+                        'Շարունակել', QMessageBox.ButtonRole.YesRole)
                 if self.label.text() == 'Date:':
                     window_title = 'Missing coordinate details'
                     quit_msg = (
@@ -73,7 +79,7 @@ def add_to_the_point_cloud(self):
                             'Please, input the missing data on '
                             'coordinates.')
                     button_Yes = msg_box.addButton(
-                        'OK', QMessageBox.YesRole)
+                        'OK', QMessageBox.ButtonRole.YesRole)
                 if self.label.text() == 'Fecha:':
                     window_title = 'Faltan datos de coordenadas'
                     quit_msg = (
@@ -81,10 +87,10 @@ def add_to_the_point_cloud(self):
                             'Por favor, introduzca los datos de '
                             'coordenadas que faltan.')
                     button_Yes = msg_box.addButton(
-                        'Continuar', QMessageBox.YesRole)
+                        'Continuar', QMessageBox.ButtonRole.YesRole)
                 msg_box.setWindowTitle(window_title)
                 msg_box.setText(quit_msg)
-                msg_box.exec_()
+                msg_box.exec()
             elif (self.lineEdit_34.text() and
                     self.lineEdit_35.text() and
                     self.comboBox.currentIndex() != 0 and
@@ -107,34 +113,34 @@ def add_to_the_point_cloud(self):
                             break
                 if found_row is not None:
                     msg_box = QMessageBox()
-                    msg_box.setIcon(QMessageBox.Information)
+                    msg_box.setIcon(QMessageBox.Icon.Information)
                     if self.label.text().startswith('Ամսաթիվ'):
                         window_title = ''
                         quit_msg = (
                             f'Համապատասխան միավորը գրանցված է N{found_row} '
                             'համարի ներքո։')
                         button_Yes = msg_box.addButton(
-                            'Շարունակել', QMessageBox.YesRole)
+                            'Շարունակել', QMessageBox.ButtonRole.YesRole)
                     if self.label.text() == 'Date:':
                         window_title = ''
                         quit_msg = (
                             'The corresponding unit is registered under '
                             f'number N{found_row}.')
                         button_Yes = msg_box.addButton(
-                            'OK', QMessageBox.YesRole)
+                            'OK', QMessageBox.ButtonRole.YesRole)
                     if self.label.text() == 'Fecha:':
                         window_title = ''
                         quit_msg = (
                             'La unidad correspondiente está registrada bajo '
                             f'el número N{found_row}.')
                         button_Yes = msg_box.addButton(
-                            'Continuar', QMessageBox.YesRole)
+                            'Continuar', QMessageBox.ButtonRole.YesRole)
                     msg_box.setWindowTitle(window_title)
                     msg_box.setText(quit_msg)
-                    msg_box.exec_()
+                    msg_box.exec()
                     clear_point_of_reference_data_from_worksheet(self)
                 else:  # add a new feature
-                    if caps & QgsVectorDataProvider.AddFeatures:
+                    if caps & QgsVectorDataProvider.Capability.AddFeatures:
                         layer.startEditing()
                         iface.actionAddFeature().trigger()
 
@@ -166,7 +172,8 @@ def add_to_the_point_cloud(self):
                                 feat['4.2.loin_coorpore_full_utm'] = id_string
 
                         feat.setGeometry(QgsGeometry.fromPointXY(point))
-                        res, outFeats = layer.dataProvider().addFeatures([feat])
+                        res, outFeats = layer.dataProvider().addFeatures(
+                            [feat])
 
                         self.lineEdit_29.setReadOnly(True)
                         self.lineEdit_34.setReadOnly(True)
@@ -194,23 +201,26 @@ def add_to_the_point_cloud(self):
             window_title = 'Նախագիծը բեռնված չէ'
             quit_msg = ('Նախագծում բացակայում են կանխադրված շերտերը։\n\n'
                         'Ցանկանու՞մ եք ստեղծել նոր նախագիծ։')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'The project is not loaded'
             quit_msg = ('The default layers are missing from the project.'
                         '\n\nWould you like to create a New Project?')
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = 'El proyecto no está cargado'
             quit_msg = ('Faltan las capas por defecto del proyecto.\n\n'
                         '¿Desea crear un Nuevo Proyecto?')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             self.create_new_project()
@@ -287,30 +297,33 @@ def remove_from_the_point_cloud(self):
             self.lineEdit_35.text() == '') and
             self.textEdit_17.toPlainText().strip() == ''):
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             window_title = 'Հեռացնելու ոչինչ չկա'
             quit_msg = (
                 'Կոորդինատի մանրամասները բացակայում են։\n\nԽնդրում ենք '
                 'մուտքագրել բացակայող տվյալները Easting and Northing '
                 'կոորդինատների վրա։')
-            button_Yes = msg_box.addButton('Շարունակել', QMessageBox.YesRole)
+            button_Yes = msg_box.addButton(
+                'Շարունակել', QMessageBox.ButtonRole.YesRole)
         if self.label.text() == 'Date:':
             window_title = 'Nothing to remove'
             quit_msg = (
                 'Coordinate details are missing.\n\nPlease, input the '
                 'missing data on Easting and Northing coordinates.')
-            button_Yes = msg_box.addButton('OK', QMessageBox.YesRole)
+            button_Yes = msg_box.addButton(
+                'OK', QMessageBox.ButtonRole.YesRole)
         if self.label.text() == 'Fecha:':
             window_title = 'No hay nada que eliminar'
             quit_msg = (
                 'Faltan detalles de coordenadas.\n\nPor favor, introduzca '
                 'los datos que faltan en las coordenadas Easting y '
                 'Northing.')
-            button_Yes = msg_box.addButton('Continuar', QMessageBox.YesRole)
+            button_Yes = msg_box.addButton(
+                'Continuar', QMessageBox.ButtonRole.YesRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
     else:  # Check if any features already have the same ID
         id_string = ''
         if self.lineEdit_34.text() and self.lineEdit_35.text():
@@ -338,25 +351,28 @@ def remove_from_the_point_cloud(self):
                 window_title = 'Հեռացնել կետը'
                 quit_msg = (f'Դուք պատրաստվում եք ջնջել N կետը{found_row}'
                             ': Ցանկանու՞մ եք շարունակել։')
-                button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-                _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+                button_Yes = msg_box.addButton(
+                    'Այո', QMessageBox.ButtonRole.YesRole)
+                _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
             if self.label.text() == 'Date:':
                 window_title = 'Remove the point'
                 quit_msg = (
                     f'You are about to delete the point N{found_row}. Do '
                     'you wish to continue?')
-                button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-                _ = msg_box.addButton('No', QMessageBox.NoRole)
+                button_Yes = msg_box.addButton(
+                    'Yes', QMessageBox.ButtonRole.YesRole)
+                _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
             if self.label.text() == 'Fecha:':
                 window_title = 'Eliminar el punto'
                 quit_msg = (
                     f'Está a punto de eliminar el punto N{found_row}. '
                     'Desea continuar?')
-                button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-                _ = msg_box.addButton('No', QMessageBox.NoRole)
+                button_Yes = msg_box.addButton(
+                    'Sí', QMessageBox.ButtonRole.YesRole)
+                _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
             msg_box.setWindowTitle(window_title)
             msg_box.setText(quit_msg)
-            msg_box.exec_()
+            msg_box.exec()
             reply = msg_box.clickedButton()
             if reply == button_Yes:
                 check_tableWidget_por(self)
@@ -425,7 +441,8 @@ def register_point_on_map(self):
         self.point_tool = QgsMapToolEmitPoint(self.canvas)
         # connect signal that the canvas was clicked
         self.canvas.setMapTool(self.point_tool)
-        self.point_tool.canvasClicked.connect(lambda: display_point_on_map(self))
+        self.point_tool.canvasClicked.connect(
+            lambda: display_point_on_map(self))
         self.pushButton_7.setEnabled(False)
         self.pushButton_10.setEnabled(True)
         self.hide()
@@ -439,23 +456,26 @@ def register_point_on_map(self):
             window_title = 'Նախագիծը բեռնված չէ'
             quit_msg = ('Նախագծում բացակայում են կանխադրված շերտերը։\n\n'
                         'Ցանկանու՞մ եք ստեղծել նոր նախագիծ։')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'The project is not loaded'
             quit_msg = ('The default layers are missing from the project.'
                         '\n\nWould you like to create a New Project?')
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = 'El proyecto no está cargado'
             quit_msg = ('Faltan las capas por defecto del proyecto\n\n'
                         '¿Desea crear un Nuevo Proyecto?')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             self.create_new_project()
@@ -552,7 +572,7 @@ def display_point_on_map(self):
                 break
         if found_row is not None:
             msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setIcon(QMessageBox.Icon.Information)
             if self.label.text().startswith('Ամսաթիվ'):
                 window_title = ''
                 quit_msg = (
@@ -561,7 +581,7 @@ def display_point_on_map(self):
                     'ենք հեռացնել տվյալնատները «Հեռացնել» կոճակի միջոցով '
                     'և մուտքագրել նոր տվյալներ:')
                 _ = msg_box.addButton(
-                    'Շարունակել', QMessageBox.YesRole)
+                    'Շարունակել', QMessageBox.ButtonRole.YesRole)
             if self.label.text() == 'Date:':
                 window_title = ''
                 quit_msg = (
@@ -569,7 +589,7 @@ def display_point_on_map(self):
                     f'N{found_row}.\n\nIf you want to change the data, '
                     'please remove the input information using the '
                     '"Remove" button and enter new data.')
-                _ = msg_box.addButton('OK', QMessageBox.YesRole)
+                _ = msg_box.addButton('OK', QMessageBox.ButtonRole.YesRole)
             if self.label.text() == 'Fecha:':
                 window_title = ''
                 quit_msg = (
@@ -577,10 +597,11 @@ def display_point_on_map(self):
                     f'número N{found_row}.\n\nSi desea cambiar los datos, '
                     'elimínelos con el botón "Eliminar" e introduzca '
                     'datos nuevos.')
-                _ = msg_box.addButton('Continuar', QMessageBox.YesRole)
+                _ = msg_box.addButton(
+                    'Continuar', QMessageBox.ButtonRole.YesRole)
             msg_box.setWindowTitle(window_title)
             msg_box.setText(quit_msg)
-            msg_box.exec_()
+            msg_box.exec()
         else:
             # Set the value for the 'ID' field
             feat['4.2.loin_coorpore_full_utm'] = id_string
@@ -712,8 +733,10 @@ def get_utm_values(self, point):
 
         hemisphere = str(hem_text_n) if point.y() >= 0 else str(hem_text_s)
 
-        utmcrs = QgsCoordinateReferenceSystem(utm_get_epsg(self, hemisphere, zone))
-        utmtrans = QgsCoordinateTransform(project_crs, utmcrs, transform_context)
+        utmcrs = QgsCoordinateReferenceSystem(
+            utm_get_epsg(self, hemisphere, zone))
+        utmtrans = QgsCoordinateTransform(
+            project_crs, utmcrs, transform_context)
         utm_point_new = utmtrans.transform(point)
 
         easting = f'{utm_point_new.x():.0f}'
@@ -963,7 +986,7 @@ def numbering_style_white_MA(self):
     markerLine2.setPlacement(Qgis.MarkerLinePlacement.Vertex)
     lyr1.renderer().symbol().appendSymbolLayer(markerLine2)
     base_color = QgsSimpleMarkerSymbolLayer(
-        shape=QgsSimpleMarkerSymbolLayer.Circle,
+        shape=Qgis.MarkerShape.Circle,
         size=4.5,
         color=color_base_mark,
         strokeColor=black)
@@ -985,7 +1008,7 @@ def numbering_style_white_MA(self):
         color=color_num)
 
     symb_numbering.setDataDefinedProperty(
-        QgsSymbolLayer.PropertyCharacter,
+        QgsSymbolLayer.Property.Character,
         QgsProperty.fromExpression('@geometry_point_num'))
     symb_numbering.setOffset(QPointF(0, -0.4))
     marker_symbol = QgsMarkerSymbol()
@@ -1028,7 +1051,7 @@ def numbering_style_white_PA(self):
     markerLine2.setPlacement(Qgis.MarkerLinePlacement.Vertex)
     layer.renderer().symbol().appendSymbolLayer(markerLine2)
     base_color = QgsSimpleMarkerSymbolLayer(
-        shape=QgsSimpleMarkerSymbolLayer.Circle,
+        shape=Qgis.MarkerShape.Circle,
         size=4.5,
         color=color_base_mark,
         strokeColor=black)
@@ -1050,7 +1073,7 @@ def numbering_style_white_PA(self):
         color=color_num)
 
     symb_numbering.setDataDefinedProperty(
-        QgsSymbolLayer.PropertyCharacter,
+        QgsSymbolLayer.Property.Character,
         QgsProperty.fromExpression('@geometry_point_num'))
     symb_numbering.setOffset(QPointF(0, -0.4))
     marker_symbol = QgsMarkerSymbol()
@@ -1227,7 +1250,7 @@ def delete_polygon(self, layer_name):
 
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     caps = layer.dataProvider().capabilities()
-    if caps & QgsVectorDataProvider.DeleteFeatures:
+    if caps & QgsVectorDataProvider.Capability.DeleteFeatures:
         layer.startEditing()
         layer.startEditing()
         # Get all features in the point layer
@@ -1264,7 +1287,7 @@ def clear_all_rows_and_remove_polygon(
             push_button2, push_button3, push_button4)
     else:
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             msg_box.information(
                 self, '',
@@ -1312,14 +1335,29 @@ def create_geometry_poly(self, layer_name, table_widget):
     it if otherwise.
     """
 
+    print("create_geometry_poly")
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     caps = layer.dataProvider().capabilities()
-    if caps & QgsVectorDataProvider.AddFeatures:
+    if caps & QgsVectorDataProvider.Capability.AddFeatures:
         provider = layer.dataProvider()
         feature = QgsFeature()
         numRows = table_widget.rowCount()
         coords = []
         for row in range(1, numRows):
+            hemisphere_zone_latband = table_widget.item(row, 3).text()
+            if not hemisphere_zone_latband or len(hemisphere_zone_latband) < 3:
+                print("wrong")
+                if self.label.text().startswith('Ամսաթիվ'):
+                    title = 'Սխալ'
+                    warn_msg = (f'Տող {int(row)+1}-ը պարունակում է UTM գոտու թերի տվյալներ։')
+                elif self.label.text() == 'Date:':
+                    title = 'Error'
+                    warn_msg = (f'Row {int(row)+1} has incomplete UTM zone data.')
+                elif self.label.text() == 'Fecha:':
+                    title = 'Error'
+                    warn_msg = (f'La fila {int(row)+1} tiene datos de zona UTM incompletos.')
+                QMessageBox.warning(self, title, warn_msg)
+                #return
             x = float(QTableWidgetItem(table_widget.item(row, 1)).text())
             y = float(QTableWidgetItem(table_widget.item(row, 2)).text())
             tup = (x, y)
@@ -1333,7 +1371,7 @@ def create_geometry_poly(self, layer_name, table_widget):
             self, layer_name, new_polygon)
         if is_added:
             msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setIcon(QMessageBox.Icon.Information)
             if self.label.text().startswith('Ամսաթիվ'):
                 msg_box.information(
                     self, '',
@@ -1421,6 +1459,7 @@ def rightclick(
     and update the layer with new data.
     """
 
+    print("rignt click")
     # Get the number of rows in the tableWidget
     numRows = table_widget.rowCount()
     if numRows < 3:  # Check if the number of rows is less than 2
@@ -1495,25 +1534,33 @@ def update_polygon_layer(self, layer_name):
     point_layer = QgsProject.instance().mapLayersByName(
         'Representative_Point')[0]
     polygon_layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
     # Get all features in the point layer
     point_features = [f for f in point_layer.getFeatures()]
     # Check if there are features in the point layer
     if not point_features:
         return
+
     # Get the last feature added to the point layer
     last_point_feature = point_features[-1]
+
     # Get all features in the polygon layer
     polygon_features = [f for f in polygon_layer.getFeatures()]
+
     # Check if there are features in the polygon layer
     if not polygon_features:
         return
+
     # Get the last feature added to the polygon layer
     last_polygon_feature = polygon_features[-1]
+
     # Get the field index of the field to be updated
     field_index = polygon_layer.fields().indexFromName(
         '4.2.loin_coorpore_full_utm')
+
     # Start editing the polygon layer
     polygon_layer.startEditing()
+
     # Update the attribute value in the polygon layer
     polygon_layer.changeAttributeValue(
         last_polygon_feature.id(), field_index,
@@ -1551,7 +1598,7 @@ def store_values_in_table(
         table_widget.setItem(numRows, 4, QTableWidgetItem(easting))
         table_widget.setItem(numRows, 5, QTableWidgetItem(northing))
 
-    if event == QtCore.Qt.RightButton:
+    if event == Qt.MouseButton.RightButton:
         rightclick_method()
         iface.actionPan().trigger()
 
@@ -1607,6 +1654,7 @@ def draw_area_on_map(
     # connect signal that the canvas was clicked
     self.canvas.setMapTool(self.polygon_tool)
     self.polygon_tool.canvasClicked.connect(store_values_in_table)
+    print("draw on map")
 
 
 def draw_area_on_map_MA(self):
@@ -1636,6 +1684,7 @@ def create_polygon(
     stored in the respective tableWidgets.
     """
 
+    print("create_polygon")
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     provider = layer.dataProvider()
     feature = QgsFeature()
@@ -1643,6 +1692,19 @@ def create_polygon(
     coords = []
     for row in range(1, numRows):
         hemisphere_zone_latband = table_widget.item(row, 3).text()
+        if not hemisphere_zone_latband or len(hemisphere_zone_latband) < 3:
+            print("wrong")
+            if self.label.text().startswith('Ամսաթիվ'):
+                title = 'Սխալ'
+                warn_msg = (f'Տող {int(row)+1}-ը պարունակում է UTM գոտու թերի տվյալներ։')
+            elif self.label.text() == 'Date:':
+                title = 'Error'
+                warn_msg = (f'Row {int(row)+1} has incomplete UTM zone data.')
+            elif self.label.text() == 'Fecha:':
+                title = 'Error'
+                warn_msg = (f'La fila {int(row)+1} tiene datos de zona UTM incompletos.')
+            QMessageBox.warning(self, title, warn_msg)
+            #return
         hem = hemisphere_zone_latband[:2]
         hemisphere = 'north' if (hem == 'N ' or hem == 'Հս') else 'south'
         zone = int(hemisphere_zone_latband[-3:-1])
@@ -1660,7 +1722,7 @@ def create_polygon(
     is_added, fid = is_polygon_already_added(self, layer_name, new_polygon)
     if is_added:
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             msg = (f'Համապատասխան միավորը գրանցված է N{fid} համարի ներքո։'
                    '\n\nԽնդրում ենք մուտքագրել նոր տվյալներ:')
@@ -1698,6 +1760,7 @@ def create_polygonMA(self):
         self, 'Monument_Area', self.tableWidget, self.lineEdit_45,
         self.lineEdit_83, self.lineEdit_131, self.pushButton_11,
         self.pushButton_12, self.pushButton_14, self.pushButton_13)
+    print("create_polygonMA")
 
 
 def create_polygonPA(self):
@@ -1719,22 +1782,22 @@ def remove_selected_rows(
     selected_rows = table_widget.selectionModel().selectedRows()
     if not selected_rows:
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             msg_box.information(
                 self, 'Տեղեկություն',
                 'Խնդրում ենք ընտրել ջնջվելիք մեկ կամ մի քանի տողերը:',
-                QMessageBox.Yes | QMessageBox.No)
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         elif self.label.text() == 'Date:':
             msg_box.information(
                 self, 'Information',
                 'Please select one or multiple rows to delete.',
-                QMessageBox.Yes | QMessageBox.No)
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         elif self.label.text() == 'Fecha:':
             msg_box.information(
                 self, 'Información',
                 'Seleccione una o varias filas para eliminar.',
-                QMessageBox.Yes | QMessageBox.No)
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
     else:
         if self.label.text().startswith('Ամսաթիվ'):
             title = 'Հաստատում'
@@ -1748,15 +1811,16 @@ def remove_selected_rows(
             msg = ('¿Está seguro(a) de que desea eliminar la(s) fila(s) '
                    'seleccionada(s)?')
         buttonReply = QMessageBox.question(
-            self, title, msg, QMessageBox.Yes | QMessageBox.No)
-        if buttonReply == QMessageBox.Yes:
+            self, title, msg,
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        if buttonReply == QMessageBox.StandardButton.Yes:
             row_indices = sorted(
                 [row_index.row() for row_index in selected_rows], reverse=True
                 )
             numRows = table_widget.rowCount()
             if row_indices[-1] == 0:
                 msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Information)
+                msg_box.setIcon(QMessageBox.Icon.Information)
                 if self.label.text().startswith('Ամսաթիվ'):
                     msg = ('Հենակետը հնարավոր չէ հեռացնել:\n\nԽնդրում ենք '
                            'ընտրել մեկ այլ տող:')
@@ -1768,7 +1832,8 @@ def remove_selected_rows(
                            '\n\nPor favor, seleccione otra fila.')
                 msg_box.information(self, '', msg)
             else:
-                # Calculate the number of rows left after removing the selected ones
+                # Calculate the number of rows left after
+                # removing the selected ones
                 remaining_rows = numRows - len(row_indices)
 
                 if remaining_rows >= 4:
@@ -1789,7 +1854,8 @@ def remove_selected_rows(
                             self, layer_name, self.lineEdit_131,
                             self.lineEdit_132, self.lineEdit_45)
                 else:
-                    # Display a message indicating that at least four rows should remain
+                    # Display a message indicating that
+                    # at least four rows should remain
                     msg_box = QMessageBox()
                     if self.label.text().startswith('Ամսաթիվ'):
                         msg_box.information(
@@ -1838,7 +1904,7 @@ def move_row_down(self, table_widget, layer_name):
     column = table_widget.currentColumn()
     if row == 0:
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             msg_box.information(
                 self, '', ('Հենակետը չի կարող տեղափոխվել:\n\nԽնդրում ենք '
@@ -1869,19 +1935,13 @@ def move_row_down(self, table_widget, layer_name):
 def move_row_down_MA(self):
     """Move the selected row down in the Monument Area tableWidget."""
 
-    if not self.tableWidget.selectedItems():
-        return  # No selection, do nothing
-    else:
-        move_row_down(self, self.tableWidget, 'Monument_Area')
+    move_row_down(self, self.tableWidget, 'Monument_Area')
 
 
 def move_row_down_PA(self):
     """Move the selected row down in the Protected Area tableWidget."""
 
-    if not self.tableWidget_1.selectedItems():
-        return  # No selection, do nothing
-    else:
-        move_row_down(self, self.tableWidget_1, 'Protected_Area')
+    move_row_down(self, self.tableWidget_1, 'Protected_Area')
 
 
 def move_row_up(self, table_widget, layer_name):
@@ -1891,7 +1951,7 @@ def move_row_up(self, table_widget, layer_name):
     column = table_widget.currentColumn()
     if row == 0 or row == 1:
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             msg_box.information(
                 self, '', ('Հենակետը չի կարող տեղափոխվել:\n\nԽնդրում ենք '
@@ -1923,19 +1983,13 @@ def move_row_up(self, table_widget, layer_name):
 def move_row_up_MA(self):
     """Move the selected row up in the Monument Area table."""
 
-    if not self.tableWidget.selectedItems():
-        return  # No selection, do nothing
-    else:
-        move_row_up(self, self.tableWidget, 'Monument_Area')
+    move_row_up(self, self.tableWidget, 'Monument_Area')
 
 
 def move_row_up_PA(self):
     """Move the selected row up in the Protected Area table."""
 
-    if not self.tableWidget_1.selectedItems():
-        return  # No selection, do nothing
-    else:
-        move_row_up(self, self.tableWidget_1, 'Protected_Area')
+    move_row_up(self, self.tableWidget_1, 'Protected_Area')
 
 
 def input_polygon_coords(self, add_point_func, finish_adding_points_func):
@@ -1953,9 +2007,9 @@ def input_polygon_coords(self, add_point_func, finish_adding_points_func):
         title = 'Se ha añadido el punto.'
         text = '¿Quiere añadir otro punto?'
     buttonReply = msg_box.question(self, title, text)
-    if buttonReply == QMessageBox.Yes:
+    if buttonReply == QMessageBox.StandardButton.Yes:
         self.AddPointPoly.clearAndFocus()
-    elif buttonReply == QMessageBox.No:
+    elif buttonReply == QMessageBox.StandardButton.No:
         finish_adding_points_func()
 
 
@@ -2000,7 +2054,7 @@ def resize_tablewidget_to_contents(self, table_widget):
     """Resize the columns of the tableWidget to fit the contents."""
     header = table_widget.horizontalHeader()
     for i in range(header.count()):
-        header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(i, QHeaderView.ResizeMode.ResizeToContents)
 
 
 def init_resize_tablewidgets_to_contents(self):
@@ -2027,10 +2081,10 @@ def export_tablewidgets_2_excel(self):
         style.font = font
         model1 = self.tableWidget.model()
         for c in range(model1.columnCount()):
-            text = model1.headerData(c, QtCore.Qt.Horizontal)
+            text = model1.headerData(c, Qt.Orientation.Horizontal)
             sheet1.write(0, c+1, text, style=style)
         for r in range(model1.rowCount()):
-            text = model1.headerData(r, QtCore.Qt.Vertical)
+            text = model1.headerData(r, Qt.Orientation.Vertical)
             sheet1.write(r+1, 0, text, style=style)
         for c in range(model1.columnCount()):
             for r in range(model1.rowCount()):
@@ -2040,10 +2094,10 @@ def export_tablewidgets_2_excel(self):
         sheet2 = wbk.add_sheet('Protected area', cell_overwrite_ok=True)
         model2 = self.tableWidget_1.model()
         for c in range(model2.columnCount()):
-            text = model2.headerData(c, QtCore.Qt.Horizontal)
+            text = model2.headerData(c, Qt.Orientation.Horizontal)
             sheet2.write(0, c+1, text, style=style)
         for r in range(model2.rowCount()):
-            text = model2.headerData(r, QtCore.Qt.Vertical)
+            text = model2.headerData(r, Qt.Orientation.Vertical)
             sheet2.write(r+1, 0, text, style=style)
         for c in range(model2.columnCount()):
             for r in range(model2.rowCount()):
@@ -2051,7 +2105,7 @@ def export_tablewidgets_2_excel(self):
                 sheet2.write(r+1, c+1, text)
         wbk.save(filename)
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             msg_box.information(
                 self, '', 'Excel ֆայլը հաջողությամբ ստեղծվեց:')
