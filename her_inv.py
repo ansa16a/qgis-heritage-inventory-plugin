@@ -9,7 +9,7 @@
         begin                : 2023-02-27
         git sha              : $Format:%H$
         copyright            : (C) 2023 by Anna Sanasaryan
-        email                : ansa16a@upv.edu.es, annasanasaryan@gmail.com
+        email                : annasanasaryan@gmail.com
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,7 +25,7 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 
-from qgis.utils import iface, reloadPlugin
+from qgis.utils import iface
 
 # Import the code for the dialog
 import her_inv

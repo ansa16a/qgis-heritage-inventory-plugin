@@ -6,7 +6,7 @@
 #		begin				: 2023-02-27
 #		git sha				: $Format:%H$
 #		copyright			: (C) 2023 by Anna Sanasaryan
-#		email				: sanasaryananna@gmail.com
+#		email				: annasanasaryan@gmail.com
 # ***************************************************************************/
 #
 #/***************************************************************************

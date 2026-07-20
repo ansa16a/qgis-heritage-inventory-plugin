@@ -10,7 +10,7 @@
         begin                : 2023-02-27
         git sha              : $Format:%H$
         copyright            : (C) 2023 by Anna Sanasaryan
-        email                : ansa16a@upv.edu.es, annasanasaryan@gmail.com
+        email                : annasanasaryan@gmail.com
  ***************************************************************************/
 
 /***************************************************************************
@@ -31,13 +31,15 @@ from qgis.core import (
     QgsEditorWidgetSetup, QgsSimpleFillSymbolLayer, QgsVectorLayer, QgsProject,
     QgsVectorLayerSimpleLabeling, QgsFillSymbol, QgsTextFormat, QgsWkbTypes,
     QgsPalLayerSettings, QgsField, QgsVectorFileWriter, QgsFields,
-    QgsCoordinateTransformContext
+    QgsCoordinateTransformContext, Qgis
 )
-from qgis.PyQt.QtGui import QPixmap, QRegularExpressionValidator, QFont, QColor
+from qgis.PyQt.QtGui import (
+    QPixmap, QFont, QColor, QRegularExpressionValidator
+)
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtCore import (
-    QLocale, QFileInfo, QTranslator, QCoreApplication, QRegularExpression,
-    QVariant, Qt
+    QLocale, QFileInfo, QTranslator, QCoreApplication, QVariant,
+    QRegularExpression, Qt
 )
 from qgis.utils import iface
 from qgis.PyQt.QtWidgets import (
@@ -52,8 +54,7 @@ from .pyscripts.shared import fieldTitles
 from .pyscripts.register_attributes import register_tabs
 from .pyscripts.point_and_polygons import (
     change_crs_to_EPSG_3857, add_to_the_point_cloud, register_point_on_map,
-    remove_from_the_point_cloud, add_point_2_tableMA, add_point_2_tablePA,
-    hide_numbering_from_map_MA, hide_numbering_from_map_PA,
+    remove_from_the_point_cloud, hide_numbering_from_map_MA,
     show_numbering_on_map_MA, show_numbering_on_map_PA,
     numbering_style_white_MA, numbering_style_white_PA,
     numbering_style_black_MA, numbering_style_black_PA,
@@ -64,7 +65,7 @@ from .pyscripts.point_and_polygons import (
     export_tablewidgets_2_excel, numbering, distance_calc,
     input_polygon_coordsMA, input_polygon_coordsPA,
     remove_tw_cont_and_last_value, delete_polygon, clear_all_rows, area_calc,
-    create_polygonMA, create_polygonPA,
+    create_polygonMA, create_polygonPA, hide_numbering_from_map_PA,
     clear_point_of_reference_data_from_worksheet
 )
 from .pyscripts.add_point_poly import AddPointPoly
@@ -76,7 +77,7 @@ import shutil
 # elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'her_inv_main.ui')
-    )
+)
 iface.actionPan().trigger()
 
 
@@ -370,28 +371,39 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         self.comboBox_2.currentIndexChanged.connect(self.updateElementCombo)
         self.comboBox_6.currentIndexChanged.connect(self.world_map)
 
-
     def init_lineEdit_validator(self):
         """Allow the use of only certain characters in lineEdits."""
 
-        self.lineEdit.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
-        self.lineEdit_2.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
-        self.lineEdit_4.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
-        self.lineEdit_5.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
-        self.lineEdit_7.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9-]+')))
-        self.lineEdit_12.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
-        self.lineEdit_20.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
-        self.lineEdit_19.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
-        self.lineEdit_21.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
-        self.lineEdit_22.setValidator(QRegularExpressionValidator(QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit.setValidator(QRegularExpressionValidator(
+            QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_2.setValidator(QRegularExpressionValidator(
+            QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_4.setValidator(QRegularExpressionValidator(
+            QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_5.setValidator(QRegularExpressionValidator(
+            QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_7.setValidator(QRegularExpressionValidator(
+            QRegularExpression('[0-9-]+')))
+        self.lineEdit_12.setValidator(QRegularExpressionValidator(
+            QRegularExpression('[0-9]+')))
+        self.lineEdit_20.setValidator(QRegularExpressionValidator(
+            QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_19.setValidator(QRegularExpressionValidator(
+            QRegularExpression('[0-9]+')))
+        self.lineEdit_21.setValidator(QRegularExpressionValidator(
+            QRegularExpression(r"^[^\d]+$")))
+        self.lineEdit_22.setValidator(QRegularExpressionValidator(
+            QRegularExpression(r"^[^\d]+$")))
         self.lineEdit_29.setValidator(QRegularExpressionValidator(
             QRegularExpression('([1-9]|[1-5][0-9]|60)')))
-        self.lineEdit_30.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
-        self.lineEdit_31.setValidator(QRegularExpressionValidator(QRegularExpression('[0-9]+')))
-        self.lineEdit_34.setValidator(
-            QRegularExpressionValidator(QRegularExpression('[0-9]+\\.?[0-9]*')))
-        self.lineEdit_35.setValidator(
-            QRegularExpressionValidator(QRegularExpression('[0-9]+\\.?[0-9]*')))
+        self.lineEdit_30.setValidator(QRegularExpressionValidator(
+            QRegularExpression('[0-9]+')))
+        self.lineEdit_31.setValidator(QRegularExpressionValidator(
+            QRegularExpression('[0-9]+')))
+        self.lineEdit_34.setValidator(QRegularExpressionValidator(
+            QRegularExpression('[0-9]+\\.?[0-9]*')))
+        self.lineEdit_35.setValidator(QRegularExpressionValidator(
+            QRegularExpression('[0-9]+\\.?[0-9]*')))
 
     def init_dateEdit_setLocale(self):
         """
@@ -402,12 +414,14 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
 
         self.dateEdit.setDateTime(QtCore.QDateTime.currentDateTime())
         if self.label.text().startswith('Ամսաթիվ'):
-            self.dateEdit.setLocale(QLocale(QLocale.Armenian, QLocale.Armenia))
+            self.dateEdit.setLocale(QLocale(
+                QLocale.Language.Armenian, QLocale.Country.Armenia))
         if self.label.text() == 'Date:':
-            self.dateEdit.setLocale(
-                QLocale(QLocale.English, QLocale.UnitedKingdom))
+            self.dateEdit.setLocale(QLocale(
+                QLocale.Language.English, QLocale.Country.UnitedKingdom))
         if self.label.text() == 'Fecha:':
-            self.dateEdit.setLocale(QLocale(QLocale.Spanish, QLocale.Spain))
+            self.dateEdit.setLocale(QLocale(
+                QLocale.Language.Spanish, QLocale.Country.Spain))
 
     def init_combobox_lists(self):
         """Dictionary of languages and element types."""
@@ -542,7 +556,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         current_text = self.comboBox.currentText()
         if current_text == "X":
             # Prevent lineEdit_29 from accepting values 32, 34, 36
-            regex = QRegularExpression("(?!32|34|36).*")  # Restrict input except for 32, 34, and 36
+            regex = QRegularExpression("(?!32|34|36).*")
             validator = QRegularExpressionValidator(regex)
             self.lineEdit_29.setValidator(validator)
         else:
@@ -563,7 +577,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         """Open a new worksheet."""
 
         msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setIcon(QMessageBox.Icon.Information)
         if self.label.text().startswith('Ամսաթիվ'):
             window_title = 'Նոր աշխատաթերթը բացման ընթացքում է'
             quit_msg = ('Դուք պատրաստվում եք բացել նոր աշխատանքային թերթ: '
@@ -592,9 +606,10 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             cancel_text = 'No'
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        yes_button = msg_box.addButton(yes_text, QMessageBox.YesRole)
-        msg_box.addButton(cancel_text, QMessageBox.RejectRole)
-        msg_box.exec_()
+        yes_button = msg_box.addButton(
+            yes_text, QMessageBox.ButtonRole.YesRole)
+        msg_box.addButton(cancel_text, QMessageBox.ButtonRole.RejectRole)
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == yes_button:
             if self.confirm_close():
@@ -612,31 +627,83 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             quit_msg = ('Խնդրում ենք ընտրել այն թղթապանակը, որտեղ կպահվի '
                         'ամբողջ նախագիծը:')
             button_Yes = msg_box.addButton(
-                        'Ընտրել թղթապանակը', QMessageBox.YesRole)
-            _ = msg_box.addButton('Չեղարկել', QMessageBox.NoRole)
+                'Ընտրել թղթապանակը', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Չեղարկել', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = ''
             quit_msg = ('Please, select the folder where all the project will '
                         'be saved.')
-            button_Yes = msg_box.addButton('Select folder', QMessageBox.YesRole)
-            _ = msg_box.addButton('Cancel', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Select folder', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Cancel', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = ''
             quit_msg = ('Por favor, seleccione la carpeta donde se guardará '
                         'todo el proyecto.')
             button_Yes = msg_box.addButton(
-                        'Seleccionar carpeta', QMessageBox.YesRole)
-            _ = msg_box.addButton('Cancelar', QMessageBox.NoRole)
+                'Seleccionar carpeta', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Cancelar', QMessageBox.ButtonRole.NoRole)
+
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
+
         reply = msg_box.clickedButton()
-        if reply == button_Yes:
-            self.direct_img()
-            self.create_polygon_layer_PA()
-            self.create_polygon_layer_MA()
-            self.create_point_layer()
-            self.change_display_name()
+        if reply != button_Yes:
+            return
+
+        self.direct_img()
+        # If for some reason self.directory is not set, abort
+        if not directory:
+            if self.label.text().startswith('Ամսաթիվ'):
+                title = 'Սխալ'
+                warn_msg = ('Թղթապանակ ընտրված չէ։')
+            elif self.label.text() == 'Date:':
+                title = 'Error'
+                warn_msg = ('No folder selected.')
+            elif self.label.text() == 'Fecha:':
+                title = 'Error'
+                warn_msg = ('No se ha seleccionado ninguna carpeta.')
+            QMessageBox.warning(self, title, warn_msg)
+            return
+
+        # Check if any of the GPKG files already exist
+        expected_files = [
+            'Protected_Area.gpkg',
+            'Monument_Area.gpkg',
+            'Representative_Point.gpkg'
+        ]
+        existing = self.check_existing_files(directory, expected_files)
+        if existing:
+            if self.label.text().startswith('Ամսաթիվ'):
+                title = 'Գտնվել են ֆայլեր'
+                warn_msg = (
+                    'Հետևյալ ֆայլերն արդեն գոյություն ունեն ընտրված '
+                    'թղթապանակում`\n\n' + '\n'.join(existing) + '\n\nԽնդրում '
+                    'ենք ընտրել այլ թղթապանակ կամ հեռացնել այս ֆայլերը:'
+                )
+            elif self.label.text() == 'Date:':
+                title = 'Existing files found'
+                warn_msg = (
+                    'The following files already exist in the selected folder:'
+                    '\n\n' + '\n'.join(existing) + '\n\nPlease choose a '
+                    'different folder or remove these files first.'
+                )
+            elif self.label.text() == 'Fecha:':
+                title = 'Archivos existentes encontrados'
+                warn_msg = (
+                    'Los siguientes archivos ya existen en la carpeta '
+                    'seleccionada:\n\n' + '\n'.join(existing) + '\n\nPor favor'
+                    ', elige otra carpeta o elimina primero estos archivos.'
+                )
+            QMessageBox.warning(self, title, warn_msg)
+            return  # Abort – do NOT create any layers
+
+        # If all clear, then create the three layers
+        self.create_polygon_layer_PA()
+        self.create_polygon_layer_MA()
+        self.create_point_layer()
+        self.change_display_name()
 
     def create_polygon_layer_PA(self):
         """
@@ -651,7 +718,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 Fields.append(QgsField(fTitle, QVariant.String))
             crs = QgsProject.instance().crs()
             newpath = directory.replace(os.sep, '/')
-            fName = '{}\Protected_Area.gpkg'.format(newpath)
+            fName = '{}/Protected_Area.gpkg'.format(newpath)
             crs = QgsProject.instance().crs()
 
             save_options = QgsVectorFileWriter.SaveVectorOptions()
@@ -662,7 +729,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 fileName=fName,  # file name to write to
                 fields=Fields,  # fields to write
                 # geometry type of output file
-                geometryType=QgsWkbTypes.Polygon,
+                geometryType=Qgis.WkbType.Polygon,
                 srs=crs,  # spatial reference system of output file
                 # coordinate transform context
                 transformContext=QgsCoordinateTransformContext(),
@@ -711,6 +778,16 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             QgsProject.instance().addMapLayer(layer)
             # iface.showAttributeTable(layer)
 
+    def check_existing_files(self, directory, filenames):
+        """Check which of the given filenames already exist in the directory."""
+
+        existing = []
+        for fname in filenames:
+            full_path = os.path.join(directory, fname)
+            if os.path.exists(full_path):
+                existing.append(fname)
+        return existing
+
     def create_polygon_layer_MA(self):
         """
         Create a polygon layer for Monument Area and add it to the project.
@@ -724,7 +801,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 Fields.append(QgsField(fTitle, QVariant.String))
             crs = QgsProject.instance().crs()
             newpath = directory.replace(os.sep, '/')
-            fName = '{}\Monument_Area.gpkg'.format(newpath)
+            fName = '{}/Monument_Area.gpkg'.format(newpath)
             crs = QgsProject.instance().crs()
 
             save_options = QgsVectorFileWriter.SaveVectorOptions()
@@ -735,7 +812,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 fileName=fName,  # file name to write to
                 fields=Fields,  # fields to write
                 # geometry type of output file
-                geometryType=QgsWkbTypes.Polygon,
+                geometryType=Qgis.WkbType.Polygon,
                 srs=crs,  # spatial reference system of output file
                 # coordinate transform context
                 transformContext=QgsCoordinateTransformContext(),
@@ -797,7 +874,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
 
             crs = QgsProject.instance().crs()
             newpath = directory.replace(os.sep, '/')
-            fName = '{}\Representative_Point.gpkg'.format(newpath)
+            fName = '{}/Representative_Point.gpkg'.format(newpath)
             crs = QgsProject.instance().crs()
             save_options = QgsVectorFileWriter.SaveVectorOptions()
             save_options.driverName = 'GPKG'
@@ -805,12 +882,13 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             writer = QgsVectorFileWriter.create(
                 fileName=fName,  # file name to write to
                 fields=Fields,  # fields to write
-                geometryType=QgsWkbTypes.Point,  # geometry type of output file
+                geometryType=Qgis.WkbType.Point,  # geometry type of output file
                 srs=crs,  # spatial reference system of output file
                 # coordinate transform context
                 transformContext=QgsCoordinateTransformContext(),
                 options=save_options)  # save options
             del writer  # delete the writer to flush features to disk
+
             layer = QgsVectorLayer(
                 r'{}'.format(fName), 'Representative_Point', 'ogr')
 
@@ -831,29 +909,35 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             # iface.showAttributeTable(layer)  # open the Attribute Table
 
     def change_display_name(self):
-        """Update display names for all layers to use the field '2.idin_name'."""
+        """
+        Update display names for all layers to use the field '2.idin_name'.
+        """
 
-        layers = ['Representative_Point', 'Monument_Area', 'Protected_Area']
-        for layer in layers:
-            lay = QgsProject.instance().mapLayersByName(layer)[0]
-            lay.setDisplayExpression(' \"2.idin_name\" ')
+        layer_names = [
+            'Representative_Point',
+            'Monument_Area',
+            'Protected_Area'
+            ]
+        for layer_name in layer_names:
+            layers = QgsProject.instance().mapLayersByName(layer_name)
+            if layers:
+                lay = layers[0]
+                lay.setDisplayExpression(' \"2.idin_name\" ')
 
     def direct_img(self):
         """Create folders and store the directory of images and documents."""
 
         global directory
         directory = QFileDialog().getExistingDirectory()
-        if (not directory or
-            len(directory) == 0 or
-                not os.path.exists(directory)):
+        if (not directory or len(directory) == 0 or not os.path.exists(directory)):
             return
 
         folder_images = 'Heritage_Images'
         folder_docs = 'Heritage_Docs'
 
         global dir_doc, dir_img
-        dir_doc = directory+'/'+folder_docs
-        dir_img = directory+'/'+folder_images
+        dir_doc = directory + '/' + folder_docs
+        dir_img = directory + '/' + folder_images
 
         try:
             os.makedirs(dir_img)
@@ -919,13 +1003,12 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 # polygon layers
                 QgsVectorFileWriter.writeAsVectorFormatV3(
                     layer0, path, crs, options)
-
-                options.actionOnExistingFile = QgsVectorFileWriter.CreateOrOverwriteLayer
+                options.actionOnExistingFile = QgsVectorFileWriter.ActionOnExistingFile.CreateOrOverwriteLayer
                 options.layerName = 'Monument_Area'
                 QgsVectorFileWriter.writeAsVectorFormatV3(
                     layer1, path, crs, options)
                 # point layer
-                options.actionOnExistingFile = QgsVectorFileWriter.CreateOrOverwriteLayer
+                options.actionOnExistingFile = QgsVectorFileWriter.ActionOnExistingFile.CreateOrOverwriteLayer
                 options.layerName = 'Representative_Point'
                 QgsVectorFileWriter.writeAsVectorFormatV3(
                     layer2, path, crs, options)
@@ -975,25 +1058,28 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             quit_msg = ('Աշխատանքային թերթի բոլոր մուտքագրված տվյալները '
                         'հնարավոր է որ ջնջվեն:\n\nՑանկանու՞մ եք շարունակել '
                         'փոխել լեզուն:')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'Switch to Armenian'
             quit_msg = ('You are about to switch to Armenian.\nAll the data '
                         'input in the Worksheet may be deleted.\n\nWould you '
                         'like to proceed with changing the language?')
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = 'Cambiar al Armenio'
             quit_msg = ('Está a punto de cambiar al Armenio.\nPuede ser que '
                         'se borren todos los datos introducidos en la ficha.'
                         '\n\n¿Desea continuar con el cambio de idioma?')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             self.selected_language = 'Հայերեն'
@@ -1014,25 +1100,28 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             quit_msg = ('Աշխատանքային թերթի բոլոր մուտքագրված տվյալները '
                         'հնարավոր է որ ջնջվեն:\n\nՑանկանու՞մ եք շարունակել '
                         'փոխել լեզուն:')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'Switch to English'
             quit_msg = ('You are about to switch to English.\nAll the data '
                         'input in the Worksheet may be deleted.\n\nWould you '
                         'like to proceed with changing the language?')
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = 'Cambiar al Inglés'
             quit_msg = ('Está a punto de cambiar al Inglés.\nPuede ser que se '
                         'borren todos los datos introducidos en la ficha.\n\n'
                         '¿Desea continuar con el cambio de idioma?')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             self.selected_language = 'English'
@@ -1053,25 +1142,28 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             quit_msg = ('Աշխատանքային թերթի բոլոր մուտքագրված տվյալները '
                         'հնարավոր է որ ջնջվեն:\n\nՑանկանու՞մ եք շարունակել '
                         'փոխել լեզուն:')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'Switch to Spanish'
             quit_msg = ('You are about to switch to Spanish.\nAll the data '
                         'input in the Worksheet may be deleted.\n\nWould you '
                         'like to proceed with changing the language?')
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = 'Cambiar al Castellano'
             quit_msg = ('Está a punto de cambiar al Castellano.\nPuede ser '
                         'que se borren todos los datos introducidos en la '
                         'ficha.\n\n¿Desea continuar con el cambio de idioma?')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             self.selected_language = 'Español'
@@ -1080,10 +1172,10 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             self.translator.load(
                 f'{self.plugin_dir}/i18n/HeritageInventory_spa_ES.qm')
             QCoreApplication.installTranslator(self.translator)
-            self.dateEdit.setLocale(QLocale(QLocale.Spanish, QLocale.Spain))
+            self.dateEdit.setLocale(QLocale(
+                QLocale.Language.Spanish, QLocale.Country.Spain))
             self.mw = HeritageInventoryMain()
             self.mw.show()
-
 
     def confirm_close(self):
         """Handle the close confirmation."""
@@ -1093,22 +1185,25 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             window_title = 'Վստա՞հ եք, որ ուզում եք դուրս գալ:'
             quit_msg = ('Աշխատանքային թերթի բոլոր մուտքագրված տվյալները '
                         'հնարավոր է որ ջնջվեն:')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'Are you sure you want to exit?'
             quit_msg = 'All the data input in the Worksheet may be deleted.'
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = '¿Está seguro de que desea salir?'
             quit_msg = ('Puede ser que se borren todos los datos '
                         'introducidos en la ficha.')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             return True
@@ -1172,8 +1267,8 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             pixmapim_1 = QPixmap(fnameim_1)
             pixmapim_1 = pixmapim_1.scaled(
                                            384, pixmapim_1.height(),
-                                           QtCore.Qt.KeepAspectRatio,
-                                           QtCore.Qt.SmoothTransformation)
+                                           Qt.AspectRatioMode.KeepAspectRatio,
+                                           Qt.TransformationMode.SmoothTransformation)
             self.label_130.setPixmap(pixmapim_1)
         else:
             self.label_130.setEnabled(False)
@@ -1205,8 +1300,8 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             pixmapim_2 = QPixmap(fnameim_2)
             pixmapim_2 = pixmapim_2.scaled(
                                            384, pixmapim_2.height(),
-                                           QtCore.Qt.KeepAspectRatio,
-                                           QtCore.Qt.SmoothTransformation)
+                                           Qt.AspectRatioMode.KeepAspectRatio,
+                                           Qt.TransformationMode.SmoothTransformation)
             self.label_131.setPixmap(pixmapim_2)
         else:
             self.label_131.setEnabled(False)
@@ -1250,7 +1345,6 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         else:
             self.lineEdit_9.clear()
             self.lineEdit_9.setEnabled(True)
-
 
     def updateElementCombo(self, index):
         """
@@ -1297,21 +1391,24 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         if self.label.text().startswith('Ամսաթիվ'):
             quit_msg = ('Խնդրում ենք հաստատել այն թղթապանակը, որտեղ կպահվի '
                         'ամբողջ նախագիծը:')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             quit_msg = ('Please, confirm the folder where all the project '
                         'will be saved.')
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             quit_msg = ('Por favor, confirme la carpeta donde se guardará '
                         'todo el proyecto.')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle('')
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             self.direct_img()
@@ -1326,21 +1423,24 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         if self.label.text().startswith('Ամսաթիվ'):
             window_title = 'Պահպանել նախագիծը'
             quit_msg = 'Ցանկանու՞մ եք պահպանել նախագիծը:'
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'Save the project'
             quit_msg = 'Would you like to save the project?'
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = 'Guardar el proyecto'
             quit_msg = '¿Desea guardar el proyecto?'
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             self.save_project_file()
@@ -1357,25 +1457,28 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
             quit_msg = ('Մուտքագրեք Excel ֆայլի անունը, որը պարունակում է '
                         'հուշարձանի և պահպանական գոտու տարածքների '
                         'կոորդինատները:')
-            button_Yes = msg_box.addButton('Այո', QMessageBox.YesRole)
-            _ = msg_box.addButton('Ոչ', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Այո', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('Ոչ', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Date:':
             window_title = 'Excel file'
             quit_msg = ('Please provide a name for an Excel file that contains'
                         ' the registered coordinates of the monument and '
                         'protected area.')
-            button_Yes = msg_box.addButton('Yes', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Yes', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         if self.label.text() == 'Fecha:':
             window_title = 'Archivo Excel'
             quit_msg = ('Indique un nombre para un archivo Excel que contiene '
                         'las coordenadas registradas del monumento y la zona '
                         'protegida.')
-            button_Yes = msg_box.addButton('Sí', QMessageBox.YesRole)
-            _ = msg_box.addButton('No', QMessageBox.NoRole)
+            button_Yes = msg_box.addButton(
+                'Sí', QMessageBox.ButtonRole.YesRole)
+            _ = msg_box.addButton('No', QMessageBox.ButtonRole.NoRole)
         msg_box.setWindowTitle(window_title)
         msg_box.setText(quit_msg)
-        msg_box.exec_()
+        msg_box.exec()
         reply = msg_box.clickedButton()
         if reply == button_Yes:
             export_tablewidgets_2_excel(self)
@@ -1453,9 +1556,9 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
 
         flags = item.flags()
         if column == 3:
-            item.setFlags(flags | QtCore.Qt.ItemIsEditable)
-        elif flags & QtCore.Qt.ItemIsEditable:
-            item.setFlags(flags ^ QtCore.Qt.ItemIsEditable)
+            item.setFlags(flags | Qt.ItemFlag.ItemIsEditable)
+        elif flags & Qt.ItemFlag.ItemIsEditable:
+            item.setFlags(flags ^ Qt.ItemFlag.ItemIsEditable)
 
     def add_document(self):
         """
@@ -1486,8 +1589,8 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                             file_info.size() / (1024 * 1024), 2)) + ' MB'
                         ),
                     '', file_path])
-                item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
-                item.setCheckState(0, Qt.Checked)
+                item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+                item.setCheckState(0, Qt.CheckState.Checked)
                 self.treeWidget.addTopLevelItem(item)
 
     def remove_selected_documents(self):
@@ -1496,9 +1599,10 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
         Remove the selected documents from the treeWidget list.
         """
 
-        top_level_items = self.treeWidget.findItems('', Qt.MatchContains, 0)
+        top_level_items = self.treeWidget.findItems(
+            '', Qt.MatchFlag.MatchContains, 0)
         for item in top_level_items:
-            if item.checkState(0) == Qt.Checked:
+            if item.checkState(0) == Qt.CheckState.Checked:
                 index = self.treeWidget.indexOfTopLevelItem(item)
                 self.treeWidget.takeTopLevelItem(index)
 
@@ -1614,7 +1718,7 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
                 text = ('Se requiere un mínimo de 3 puntos para ser '
                         'registrado.\n\n¿Desea añadir algún otro punto?')
             buttonReply = msg_box.question(self, title, text)
-            if buttonReply == QMessageBox.Yes:
+            if buttonReply == QMessageBox.StandardButton.Yes:
                 if table_widget == self.tableWidget:
                     self.addrowMA()
                 else:
@@ -1678,29 +1782,33 @@ class HeritageInventoryMain(QMainWindow, FORM_CLASS):
 
     def world_map(self, index):
         """
-        Downloads images of the World Map from the plugin directory into
-        specified folder.
-        """
+        Downloads an image of the World Map from the plugin directory
+        into a user‑selected folder and opens it with the default viewer.
 
-        if index == 0:
-            destin_dir = QFileDialog().getExistingDirectory()
-            if (not destin_dir or
-                    len(destin_dir) == 0 or
-                    not os.path.exists(destin_dir)):
-                return
-            else:
-                source_image_path = f'{self.plugin_dir}/logos/Figures_1.jpg'
-                destin_file_path = os.path.join(destin_dir, 'Figures_1.jpg')
-                shutil.copy(source_image_path, destin_file_path)
-                os.startfile(destin_file_path)
-        elif index == 1:
-            destin_dir = QFileDialog().getExistingDirectory()
-            if (not destin_dir or
-                    len(destin_dir) == 0 or
-                    not os.path.exists(destin_dir)):
-                return
-            else:
-                source_image_path = f'{self.plugin_dir}/logos/Figures_2.jpg'
-                destin_file_path = os.path.join(destin_dir, 'Figures_2.jpg')
-                shutil.copy(source_image_path, destin_file_path)
-                os.startfile(destin_file_path)
+        :param index: 0 for Figures_1.jpg, 1 for Figures_2.jpg
+        """
+        # Map index to image filename
+        image_files = {
+            0: 'Figure_1.jpg',
+            1: 'Figure_2.jpg'
+        }
+
+        if index not in image_files:
+            return
+
+        destin_dir = QFileDialog.getExistingDirectory()
+        if not destin_dir or not os.path.exists(destin_dir):
+            return
+
+        image_name = image_files[index]
+        source_image_path = os.path.join(self.plugin_dir, 'logos', image_name)
+        destin_file_path = os.path.join(destin_dir, image_name)
+
+        try:
+            shutil.copy(source_image_path, destin_file_path)
+        except Exception as e:
+            QMessageBox.warning(
+                self,
+                'Error',
+                f'Failed to copy the image:\n{str(e)}'
+            )
